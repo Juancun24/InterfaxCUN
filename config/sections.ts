@@ -400,4 +400,4 @@ export const SECTIONS: SectionConfig[] = [
 export const FORO_ACCENT = '#00E5FF';
 
 // INTRO VIDEO
-export const INTRO_VIDEO_URL = '/assets/render.mp4';
+export const INTRO_VIDEO_URL = '/render.mp4';
