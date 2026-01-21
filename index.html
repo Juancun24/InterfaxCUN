@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tactical HUD | Secret Agent Interface</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --bg-main: #0B0F1A;
+        --surface: #121A2F;
+        --text-primary: #E6ECFF;
+        --text-secondary: #9AA4C7;
+        --neon-blue: #1FB6FF;
+        --glow: rgba(31,182,255,0.4);
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: var(--bg-main);
+        color: var(--text-primary);
+        font-family: 'Montserrat', sans-serif;
+        overflow: hidden;
+      }
+
+      /* Simulation of Splinter Cell / Agency FB font style */
+      .font-agency {
+        font-family: 'Montserrat', sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        font-weight: 700;
+        font-stretch: expanded;
+      }
+
+      .glass {
+        background: rgba(18, 26, 47, 0.7);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .glow-border {
+        box-shadow: 0 0 10px var(--glow-color, var(--neon-blue));
+        border-color: var(--glow-color, var(--neon-blue));
+      }
+
+      ::-webkit-scrollbar {
+        width: 4px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #0B0F1A;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #1FB6FF;
+        border-radius: 10px;
+      }
+
+      @keyframes scanline {
+        0% { transform: translateY(-100%); }
+        100% { transform: translateY(100%); }
+      }
+
+      .scanline::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: rgba(31, 182, 255, 0.2);
+        animation: scanline 8s linear infinite;
+        pointer-events: none;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-router-dom": "https://esm.sh/react-router-dom@^7.12.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>

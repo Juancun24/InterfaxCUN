@@ -1,0 +1,8 @@
+{
+  "name": "Secret Agent Tactical Interface",
+  "description": "A premium cyberpunk-themed tactical interface for secret agents, featuring 3D transitions, video carousels, and encrypted communication modules.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
