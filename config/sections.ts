@@ -32,7 +32,7 @@ export const SECTIONS: SectionConfig[] = [
     {
       id: 'cdigital-1',
       title: 'Cyber Intel Phase 1',
-      url: 'assets/0120.mp4',
+      url: 'public/videos/0120.mp4',
       thumbnail: 'assets/foca cd digital.svg',
     },
     {
