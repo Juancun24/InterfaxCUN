@@ -58,22 +58,46 @@ const ChatbotPanel: React.FC<ChatbotPanelProps> = ({ activeSection, accentColor,
         </div>
       </div>
 
-      {/* Message Feed */}
-      <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar bg-black/10">
-        {messages.map((msg) => (
-          <ChatMessageBubble key={msg.id} message={msg} accentColor={accentColor} />
-        ))}
-        {isTyping && (
-          <div className="flex items-center gap-2 p-2 opacity-50">
-            <div className="flex gap-1">
-              <div className="w-1 h-1 bg-white rounded-full animate-bounce"></div>
-              <div className="w-1 h-1 bg-white rounded-full animate-bounce [animation-delay:0.2s]"></div>
-              <div className="w-1 h-1 bg-white rounded-full animate-bounce [animation-delay:0.4s]"></div>
-            </div>
-            <span className="font-agency text-[8px]">RESPUESTA_CIFRADA...</span>
+        {/* Message Feed Container */}
+        <div className="flex-1 relative overflow-hidden"> 
+          
+          {/* 1. Fondo e Imagen (Fijos al contenedor para que no se corten al scrollear) */}
+          <div 
+            className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: 'url("https://res.cloudinary.com/dknmovwrt/image/upload/v1769032404/SEALAB_eiw7so.png")' }}
+          >
+            {/* 2. Overlay que cubre todo el panel de mensajes */}
+            <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]"></div>
           </div>
-        )}
-      </div>
+
+          {/* 3. Área de Scroll real */}
+          <div 
+            ref={scrollRef} 
+            className="absolute inset-0 overflow-y-auto p-4 custom-scrollbar z-10"
+          >
+            {/* 4. Envoltorio relativo para el contenido de los mensajes */}
+            <div className="relative space-y-4">
+              {messages.map((msg) => (
+                <ChatMessageBubble 
+                  key={msg.id} 
+                  message={msg} 
+                  accentColor={accentColor} 
+                />
+              ))}
+
+              {isTyping && (
+                <div className="flex items-center gap-2 p-2 opacity-50">
+                  <div className="flex gap-1">
+                    <div className="w-1 h-1 bg-white rounded-full animate-bounce"></div>
+                    <div className="w-1 h-1 bg-white rounded-full animate-bounce [animation-delay:0.2s]"></div>
+                    <div className="w-1 h-1 bg-white rounded-full animate-bounce [animation-delay:0.4s]"></div>
+                  </div>
+                  <span className="font-agency text-[8px]">RESPUESTA_CIFRADA...</span>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
 
       {/* Quick Chips */}
       <div className="px-4 py-2 flex gap-2 overflow-x-auto no-scrollbar border-t border-white/5">
