@@ -72,7 +72,7 @@ const Sidebar: React.FC = () => {
       <div className="mb-12 flex items-center justify-center">
          <div className="w-14 h-14 flex items-center justify-center transition-transform duration-500 hover:scale-110 drop-shadow-[0_0_10px_rgba(31,182,255,0.6)]">
            <img 
-            src="\assets\LOGO CUN.svg" 
+            src="static/images/LOGOCUN.svg" 
             alt="Logo" 
             className="w-full h-full object-contain brightness-125"
            />
