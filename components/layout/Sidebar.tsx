@@ -72,7 +72,7 @@ const Sidebar: React.FC = () => {
       <div className="mb-12 flex items-center justify-center">
          <div className="w-14 h-14 flex items-center justify-center transition-transform duration-500 hover:scale-110 drop-shadow-[0_0_10px_rgba(31,182,255,0.6)]">
            <img 
-            src="static/images/LOGO CUN.svg" 
+            src="\assets\LOGO CUN.svg" 
             alt="Logo" 
             className="w-full h-full object-contain brightness-125"
            />
@@ -88,7 +88,7 @@ const Sidebar: React.FC = () => {
           `}
         >
           <div className="w-6 flex justify-center"><IconHome /></div>
-          {isExpanded && <span className="font-agency text-sm tracking-widest">Mando de control</span>}
+          {isExpanded && <span className="font-agency text-sm tracking-widest">Control</span>}
         </NavLink>
 
         <div className="h-px bg-white/10 my-2"></div>

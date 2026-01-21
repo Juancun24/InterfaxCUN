@@ -10,8 +10,8 @@ export const SECTIONS: SectionConfig[] = [
   label: "Cdigital",
   accentColor: "#2BFF88",
   path: "cdigital",
-  description: "Digital Intelligence and Cyber-Warfare Div.",
-  accessLevel: "CLEARANCE_A",
+  description: "División de Inteligencia Digital.",
+  accessLevel: "ACTIVO",
   headerVideoUrl: 'assets/VIDEO2.mp4',
 
   // ✅ SVG completo con width/height ajustados para el sidebar
@@ -31,31 +31,31 @@ export const SECTIONS: SectionConfig[] = [
   videos: [
     {
       id: 'cdigital-1',
-      title: 'Cyber Intel Phase 1',
-      url: 'public/videos/0120.mp4',
+      title: 'Aula en orden ',
+      url: 'assets/0120.mp4',
       thumbnail: 'assets/foca cd digital.svg',
     },
     {
       id: 'cdigital-2',
-      title: 'Cyber Intel Phase 2',
+      title: 'Grupos Encubiertos',
       url: 'assets/0120.mp4',
       thumbnail: 'assets/foca cd digital.svg',
     },
     {
       id: 'cdigital-3',
-      title: 'Cyber Intel Phase 3',
+      title: 'Libro calificador',
       url: 'assets/0120.mp4',
       thumbnail: 'assets/foca cd digital.svg',
     },
     {
       id: 'cdigital-4',
-      title: 'Cyber Intel Phase 4',
+      title: 'Réplica estratégica',
       url: 'assets/0120.mp4',
       thumbnail: 'assets/foca cd digital.svg',
     },
     {
       id: 'cdigital-5',
-      title: 'Cyber Intel Phase 5',
+      title: 'Extracción de datos',
       url: 'assets/0120.mp4',
       thumbnail: 'assets/foca cd digital.svg',
     }
@@ -66,8 +66,8 @@ export const SECTIONS: SectionConfig[] = [
     label: 'Notebook',
     accentColor: '#FF9F1C',
     path: 'notebook',
-    description: 'Tactical Reconnaissance Records.',
-    accessLevel: 'ENCRYPTED',
+    description: 'Registros de reconocimiento táctico.',
+    accessLevel: 'ENCRIPTADO',
     headerVideoUrl: 'assets/VIDEO2.mp4',
     // REEMPLAZA AQUÍ: SVG completo para Notebook (viewBox + 3 paths)
  iconSvg: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 84.47 84.47">
@@ -83,31 +83,31 @@ export const SECTIONS: SectionConfig[] = [
  videos: [
     {
       id: 'notebook-1',
-      title: 'Cyber Intel Phase 1',
+      title: 'Operación Biblioteca Viva',
       url: 'assets/0120.mp4',
       thumbnail: 'assets/focanodbook.svg',
     },
     {
       id: 'notebook-2',
-      title: 'Cyber Intel Phase 2',
+      title: 'Operación Ingesta de Fuentes',
       url: 'assets/0120.mp4',
       thumbnail: 'assets/focanodbook.svg',
     },
     {
       id: 'notebook-3',
-      title: 'Cyber Intel Phase 3',
+      title: 'Operación Resumen Controlado',
       url: 'assets/0120.mp4',
       thumbnail: 'assets/focanodbook.svg',
     },
     {
       id: 'notebook-4',
-      title: 'Cyber Intel Phase 4',
+      title: 'Operación Preguntas Guiadas',
       url: 'assets/0120.mp4',
       thumbnail: 'assets/focanodbook.svg',
     },
     {
       id: 'notebook-5',
-      title: 'Cyber Intel Phase 5',
+      title: 'Operación Dossier Consolidado',
       url: 'assets/0120.mp4',
       thumbnail: 'assets/focanodbook.svg',
     }
@@ -118,8 +118,8 @@ export const SECTIONS: SectionConfig[] = [
     label: 'Gemini',
     accentColor: '#FF4D9D',
     path: 'gemini',
-    description: 'Neural Network & AI Support.',
-    accessLevel: 'RESTRICTED',
+    description: 'Soporte de redes neuronales e IA.',
+    accessLevel: 'RESTRINGIDO',
     headerVideoUrl: 'assets/VIDEO2.mp4',
     // REEMPLAZA AQUÍ: SVG completo para Gemini (viewBox + 3 paths)
     iconSvg: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 94.42 94.42">
@@ -137,31 +137,31 @@ export const SECTIONS: SectionConfig[] = [
  videos: [
     {
       id: 'gemini-1',
-      title: 'Cyber Intel Phase 1',
+      title: 'Operación Enlace',
       url: 'assets/0120.mp4',
       thumbnail: 'assets/fokigeiny.svg',
     },
     {
       id: 'gemini-2',
-      title: 'Cyber Intel Phase 2',
+      title: 'Operación Análisis de Contexto',
       url: 'assets/0120.mp4',
       thumbnail: 'assets/fokigeiny.svg',
     },
     {
       id: 'gemini-3',
-      title: 'Cyber Intel Phase 3',
+      title: 'Operación Sintetizar Reporte',
       url: 'assets/0120.mp4',
       thumbnail: 'assets/fokigeiny.svg',
     },
     {
       id: 'gemini-4',
-      title: 'Cyber Intel Phase 4',
+      title: 'Operación Prompt Maestro',
       url: 'assets/0120.mp4',
       thumbnail: 'assets/fokigeiny.svg',
     },
     {
       id: 'gemini-5',
-      title: 'Cyber Intel Phase 5',
+      title: 'Operación Deploy de Agente',
       url: 'assets/0120.mp4',
       thumbnail: 'assets/fokigeiny.svg',
     }
@@ -172,8 +172,8 @@ export const SECTIONS: SectionConfig[] = [
     label: 'kactus',
     accentColor: '#2BFF88',
     path: 'kactus',
-    description: 'Biological Threat Identification.',
-    accessLevel: 'CLEARANCE_B',
+    description: 'Accede, controla y evoluciona tu ecosistema tecnológico.',
+    accessLevel: 'INACTIVO',
     headerVideoUrl: 'assets/VIDEO2.mp4',
     // REEMPLAZA AQUÍ: SVG completo para Kactus (viewBox + 3 paths)
   iconSvg: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 94.42 94.42">
@@ -194,31 +194,31 @@ export const SECTIONS: SectionConfig[] = [
  videos: [
     {
       id: 'kactus-1',
-      title: 'Cyber Intel Phase 1',
+      title: 'Operación Apertura KACTUS',
       url: 'assets/0120.mp4',
       thumbnail: 'assets/focakatus.svg',
     },
     {
       id: 'kactus-2',
-      title: 'Cyber Intel Phase 2',
+      title: 'Operación Gestión de Novedades',
       url: 'assets/0120.mp4',
       thumbnail: 'assets/focakatus.svg',
     },
     {
       id: 'kactus-3',
-      title: 'Cyber Intel Phase 3',
+      title: 'Operación Liquidación y Nómina',
       url: 'assets/0120.mp4',
       thumbnail: 'assets/focakatus.svg',
     },
     {
       id: 'kactus-4',
-      title: 'Cyber Intel Phase 4',
+      title: 'Operación Validación de Contratos',
       url: 'assets/0120.mp4',
       thumbnail: 'assets/focakatus.svg',
     },
     {
       id: 'kactus-5',
-      title: 'Cyber Intel Phase 5',
+      title: 'Operación Reportes de Talento',
       url: 'assets/0120.mp4',
       thumbnail: 'assets/focakatus.svg',
     }
@@ -229,8 +229,8 @@ export const SECTIONS: SectionConfig[] = [
     label: 'CUN',
     accentColor: '#00E5FF',
     path: 'cun',
-    description: 'Central Unified Network Operations.',
-    accessLevel: 'TOP_SECRET',
+    description: 'Operaciones de red unificada central.',
+    accessLevel: 'ALTO_NIVEL',
     headerVideoUrl: 'assets/VIDEO2.mp4',
     // REEMPLAZA AQUÍ: SVG completo para CUN (viewBox + 3 paths)
     iconSvg: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 106.71 99.81">
@@ -268,31 +268,31 @@ export const SECTIONS: SectionConfig[] = [
  videos: [
     {
       id: 'cun-1',
-      title: 'Cyber Intel Phase 1',
+      title: 'Operación Acceso Institucional',
       url: 'assets/0120.mp4',
       thumbnail: 'assets/focaWeb.svg',
     },
     {
       id: 'cun-2',
-      title: 'Cyber Intel Phase 2',
+      title: 'Operación Gestión de Programas',
       url: 'assets/0120.mp4',
       thumbnail: 'assets/focaWeb.svg',
     },
     {
       id: 'cun-3',
-      title: 'Cyber Intel Phase 3',
+      title: 'Operación Control de Materias',
       url: 'assets/0120.mp4',
       thumbnail: 'assets/focaWeb.svg',
     },
     {
       id: 'cun-4',
-      title: 'Cyber Intel Phase 4',
+      title: 'Operación Registro de Usuarios',
       url: 'assets/0120.mp4',
       thumbnail: 'assets/focaWeb.svg',
     },
     {
       id: 'cun-5',
-      title: 'Cyber Intel Phase 5',
+      title: 'Operación Consolidación Operativa',
       url: 'assets/0120.mp4',
       thumbnail: 'assets/focaWeb.svg',
     }
@@ -303,8 +303,8 @@ export const SECTIONS: SectionConfig[] = [
     label: 'SINU',
     accentColor: '#FF9F1C',
     path: 'phyton',
-    description: 'Structural Analysis & Logistics.',
-    accessLevel: 'ENCRYPTED_X',
+    description: 'Análisis Estructural y Logística.',
+    accessLevel: 'ENCRIPTADO',
     headerVideoUrl: 'assets/VIDEO2.mp4',
     // REEMPLAZA AQUÍ: SVG completo para PHYTON (viewBox + 3 paths)
     iconSvg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 94.42 94.42">
@@ -343,31 +343,31 @@ export const SECTIONS: SectionConfig[] = [
  videos: [
     {
       id: 'sinu-1',
-      title: 'Cyber Intel Phase 1',
+      title: 'Operación Consulta Académica',
       url: 'assets/0120.mp4',
       thumbnail: 'assets/focasinu.svg',
     },
     {
       id: 'sinu-2',
-      title: 'Cyber Intel Phase 2',
+      title: 'Operación Validación de Datos',
       url: 'assets/0120.mp4',
       thumbnail: 'assets/focasinu.svg',
     },
     {
       id: 'sinu-3',
-      title: 'Cyber Intel Phase 3',
+      title: 'Operación Actualización de Registro',
       url: 'assets/0120.mp4',
       thumbnail: 'assets/focasinu.svg',
     },
     {
       id: 'sinu-4',
-      title: 'Cyber Intel Phase 4',
+      title: 'Operación Soporte y Escalamiento',
       url: 'assets/0120.mp4',
       thumbnail: 'assets/focasinu.svg',
     },
     {
       id: 'sinu-5',
-      title: 'Cyber Intel Phase 5',
+      title: 'Operación Cierre de Caso',
       url: 'assets/0120.mp4',
       thumbnail: 'assets/focasinu.svg',
     }
@@ -379,7 +379,7 @@ export const SECTIONS: SectionConfig[] = [
     label: 'Perfil',
     accentColor: '#9B6BFF',
     path: 'perfil',
-    description: 'Agent Credentials and Performance.',
+    description: 'Credenciales y desempeño del agente.',
     accessLevel: 'OWNER_ONLY',
     headerVideoUrl: 'assets/VIDEO2.mp4',
     // REEMPLAZA AQUÍ: SVG completo para Perfil (viewBox + 3 paths)
@@ -400,4 +400,4 @@ export const SECTIONS: SectionConfig[] = [
 export const FORO_ACCENT = '#00E5FF';
 
 // INTRO VIDEO
-export const INTRO_VIDEO_URL = '/render.mp4';
+export const INTRO_VIDEO_URL = '/assets/render.mp4';

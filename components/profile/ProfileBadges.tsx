@@ -5,7 +5,7 @@ import { badges } from '../../config/profile.mock';
 const ProfileBadges: React.FC = () => {
   return (
     <div className="glass rounded-2xl p-6 border border-white/5">
-      <h3 className="font-agency text-sm tracking-[0.3em] text-[#9B6BFF] mb-4">AUTHENTICATED_SKILLS</h3>
+      <h3 className="font-agency text-sm tracking-[0.3em] text-[#9B6BFF] mb-4">HABILIDADES_AUTENTIFICADAS</h3>
       <div className="flex flex-wrap gap-2">
         {badges.map((badge, idx) => (
           <span 

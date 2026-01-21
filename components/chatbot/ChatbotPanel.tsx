@@ -47,8 +47,8 @@ const ChatbotPanel: React.FC<ChatbotPanelProps> = ({ activeSection, accentColor,
             <div className="absolute inset-0 w-2 h-2 rounded-full bg-[#2BFF88] animate-ping opacity-40"></div>
           </div>
           <div>
-            <h4 className="font-agency text-xs tracking-[0.2em] text-white">OPS_ASSISTANT_V2</h4>
-            <span className="text-[9px] font-agency opacity-40 uppercase">Secure_Channel // Encryption_Active</span>
+            <h4 className="font-agency text-xs tracking-[0.2em] text-white">SEALABOT</h4>
+            <span className="text-[9px] font-agency opacity-40 uppercase">Canal_Seguro //Activo</span>
           </div>
         </div>
         <div className="flex gap-2">
@@ -70,7 +70,7 @@ const ChatbotPanel: React.FC<ChatbotPanelProps> = ({ activeSection, accentColor,
               <div className="w-1 h-1 bg-white rounded-full animate-bounce [animation-delay:0.2s]"></div>
               <div className="w-1 h-1 bg-white rounded-full animate-bounce [animation-delay:0.4s]"></div>
             </div>
-            <span className="font-agency text-[8px]">ENCRYPTING_RESPONSE...</span>
+            <span className="font-agency text-[8px]">RESPUESTA_CIFRADA...</span>
           </div>
         )}
       </div>
@@ -108,8 +108,8 @@ const ChatbotPanel: React.FC<ChatbotPanelProps> = ({ activeSection, accentColor,
           </button>
         </div>
         <div className="mt-2 flex justify-between px-1">
-          <span className="text-[8px] font-agency opacity-20">SYSTEM_ID: X92-ALPHA</span>
-          <span className="text-[8px] font-agency opacity-20">SHIFT+ENTER for new line</span>
+          <span className="text-[8px] font-agency opacity-20">Sistema_ID: ALPHA</span>
+          <span className="text-[8px] font-agency opacity-20">SHIFT+ENTER para nueva linea</span>
         </div>
       </div>
     </div>

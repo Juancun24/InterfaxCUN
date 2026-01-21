@@ -3,7 +3,7 @@
 export const profileUser = {
   name: "Alexander 'Cipher' Vance",
   role: "ADMIN / SENIOR OPERATOR",
-  status: "ACTIVE", // ACTIVE, SUSPENDED, PENDING
+  status: "ACTIVO", // ACTIVO, SUSPENDIDO, PENDIENTE
   accessLevel: 5,
   lastLogin: "2025-05-20 14:32:01 UTC",
   avatar: "https://picsum.photos/seed/cipher/300/300",
@@ -41,8 +41,8 @@ export const activityEvents = [
 
 // EDIT HERE: Skill and role badges
 export const badges = [
-  { label: "SYSTEM_ADMIN", color: "#9B6BFF" },
-  { label: "ELITE_HACKER", color: "#2BFF88" },
-  { label: "FIELD_LEADER", color: "#FF9F1C" },
-  { label: "MODERATOR", color: "#00E5FF" }
+  { label: "ADMINISTRATIVO", color: "#9B6BFF" },
+  { label: "ELITE", color: "#2BFF88" },
+  { label: "HACKER", color: "#FF9F1C" },
+  { label: "MODERADOR", color: "#00E5FF" }
 ];

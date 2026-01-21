@@ -43,9 +43,9 @@ const SectionPage: React.FC<SectionPageProps> = ({ section }) => {
           <div className="relative z-10">
             <div className="flex items-center gap-3 mb-2">
               <div className="w-8 h-px bg-[#9B6BFF]"></div>
-              <span className="font-agency text-xs tracking-[0.4em] text-[#9B6BFF]">OPERATIONAL_DOSSIER</span>
+              <span className="font-agency text-xs tracking-[0.4em] text-[#9B6BFF]">EXPEDIENTE_OPERATORIO</span>
             </div>
-            <h1 className="font-agency text-5xl md:text-6xl text-white tracking-tighter uppercase">Identity_Vault</h1>
+            <h1 className="font-agency text-5xl md:text-6xl text-white tracking-tighter uppercase">Bóveda_de_identidad</h1>
           </div>
         </header>
 
@@ -104,7 +104,7 @@ const SectionPage: React.FC<SectionPageProps> = ({ section }) => {
           <div>
               <div className="flex items-center gap-3 mb-2">
                   <div className="w-8 h-px" style={{ backgroundColor: section.accentColor }}></div>
-                  <span className="font-agency text-xs tracking-[0.4em] opacity-60">ACTIVE_DIRECTORY</span>
+                  <span className="font-agency text-xs tracking-[0.4em] opacity-60">DIRECTORIO_ACTIVO</span>
               </div>
               <h1 className="font-agency text-6xl tracking-tighter" style={{ color: section.accentColor }}>
                   {section.label}
@@ -113,14 +113,10 @@ const SectionPage: React.FC<SectionPageProps> = ({ section }) => {
           
           <div className="glass p-4 rounded-lg flex gap-8">
               <div>
-                  <div className="font-agency text-[10px] opacity-40 mb-1">DATA_STATUS</div>
-                  <div className="text-xs font-agency text-[#2BFF88]">STABLE_CONNECTION</div>
+                  <div className="font-agency text-[10px] opacity-40 mb-1">ESTADO DE DATOS</div>
+                  <div className="text-xs font-agency text-[#2BFF88]">CONEXIÓN_ESTABLE</div>
               </div>
-              <div>
-                  <div className="font-agency text-[10px] opacity-40 mb-1">ENCRYPTION</div>
-                  <div className="text-xs font-agency">AES_256_BIT</div>
-              </div>
-          </div>
+                </div>
         </div>
       </div>
 
@@ -129,7 +125,7 @@ const SectionPage: React.FC<SectionPageProps> = ({ section }) => {
         <div className="xl:col-span-3 space-y-16">
           <section id="visual-intel">
             <div className="flex items-center gap-4 mb-6">
-                <h3 className="font-agency text-lg tracking-widest">VISUAL_SURVEILLANCE</h3>
+                <h3 className="font-agency text-lg tracking-widest">PORTAFOLIO</h3>
                 <div className="flex-1 h-px bg-white/5"></div>
             </div>
             <VideoCarousel 
@@ -141,7 +137,7 @@ const SectionPage: React.FC<SectionPageProps> = ({ section }) => {
 
           <section id="secure-comms">
             <div className="flex items-center gap-4 mb-6">
-                <h3 className="font-agency text-lg tracking-widest text-[#00E5FF]">SECURE_COMMS_CHANNEL</h3>
+                <h3 className="font-agency text-lg tracking-widest text-[#00E5FF]">CANAL DE COMUNICACIONES SEGURO</h3>
                 <div className="flex-1 h-px bg-white/5"></div>
             </div>
             <Forum />

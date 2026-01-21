@@ -29,10 +29,10 @@ const Forum: React.FC = () => {
     <div className="glass rounded-2xl overflow-hidden border border-[#00E5FF22] flex flex-col min-h-[500px]">
         {/* Header */}
         <div className="bg-[#00E5FF11] p-4 flex items-center justify-between border-b border-[#00E5FF22]">
-            <span className="font-agency text-sm text-[#00E5FF] tracking-widest">ACTIVE_SECURE_CHANNEL: 0x93F</span>
+            <span className="font-agency text-sm text-[#00E5FF] tracking-widest">CANAL_SEGURO_ACTIVADO:</span>
             <div className="flex gap-2">
                 <div className="w-2 h-2 rounded-full bg-[#00E5FF] animate-ping"></div>
-                <span className="text-[10px] font-agency opacity-50">SYNCED</span>
+                <span className="text-[10px] font-agency opacity-50">EN LÍNEA</span>
             </div>
         </div>
 
@@ -59,7 +59,7 @@ const Forum: React.FC = () => {
             <div className="flex gap-4">
                 <input 
                     type="text" 
-                    placeholder="ENTER_ENCRYPTED_MESSAGE..."
+                    placeholder="INTRODUCIR_MENSAJE_CIFRADO..."
                     value={inputText}
                     onChange={(e) => setInputText(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleSend()}
@@ -69,7 +69,7 @@ const Forum: React.FC = () => {
                     onClick={handleSend}
                     className="px-6 py-3 bg-[#00E5FF11] border border-[#00E5FF] text-[#00E5FF] font-agency text-xs hover:bg-[#00E5FF] hover:text-black transition-all rounded-lg"
                 >
-                    SEND_ENCRYPTED
+                    ENVIAR
                 </button>
             </div>
         </div>

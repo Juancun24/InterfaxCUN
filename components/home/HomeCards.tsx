@@ -17,11 +17,11 @@ const HomeCards: React.FC = () => {
             <div className="absolute -top-4 -left-4 w-6 h-6 border-t border-l border-[#1FB6FF] opacity-50"></div>
             <div className="absolute -bottom-4 -right-4 w-6 h-6 border-b border-r border-[#1FB6FF] opacity-50"></div>
             <h1 className="font-agency text-3xl sm:text-4xl md:text-6xl lg:text-7xl text-[#E6ECFF] tracking-tighter uppercase px-6">
-                Tactical_Control_Center
+                Centro de control
             </h1>
         </div>
         <p className="text-[#9AA4C7] font-light max-w-2xl mx-auto uppercase text-[10px] sm:text-xs tracking-[0.2em] sm:tracking-[0.4em] opacity-80 leading-relaxed">
-            Authorized Personnel Only. Operational modules active: 06.
+           Solo personal autorizado. Módulos operativos activos: 06.
         </p>
       </header>
 
@@ -44,8 +44,8 @@ const HomeCards: React.FC = () => {
                 {/* HUD Header Bar */}
                 <div className="flex justify-between items-start mb-6 z-10">
                     <div className="flex flex-col">
-                        <span className="font-agency text-[8px] text-[#9AA4C7] opacity-60">MODULE_ID</span>
-                        <span className="font-agency text-[10px] text-white">0x{section.id.toUpperCase().slice(0, 4)}</span>
+                        <span className="font-agency text-[8px] text-[#9AA4C7] opacity-60">MÓDULO_DE_MISIÓN</span>
+                        <span className="font-agency text-[10px] text-white">{section.id.toUpperCase().slice(0, 4)}</span>
                     </div>
                     <span className="font-agency text-[9px] px-2 py-0.5 border rounded-sm tracking-widest" 
                           style={{ color: section.accentColor, borderColor: `${section.accentColor}66`, backgroundColor: `${section.accentColor}11` }}>
@@ -85,7 +85,7 @@ const HomeCards: React.FC = () => {
                         ))}
                     </div>
                     <div className="flex items-center gap-2 group/btn">
-                        <span className="font-agency text-[9px] text-[#9AA4C7] group-hover:text-white">INITIALIZE</span>
+                        <span className="font-agency text-[9px] text-[#9AA4C7] group-hover:text-white">INICIAR MISIÓN</span>
                         <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke={section.accentColor} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                             <line x1="5" y1="12" x2="19" y2="12"></line>
                             <polyline points="12 5 19 12 12 19"></polyline>

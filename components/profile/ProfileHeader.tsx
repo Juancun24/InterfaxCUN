@@ -57,7 +57,7 @@ const ProfileHeader: React.FC = () => {
                   <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
                   <circle cx="12" cy="13" r="4"></circle>
                 </svg>
-                <span className="font-agency text-[8px] text-white tracking-[0.2em]">UPLOAD_BIO_SIG</span>
+                <span className="font-agency text-[8px] text-white tracking-[0.2em]">SUBIR</span>
               </div>
             )}
           </div>
@@ -71,7 +71,7 @@ const ProfileHeader: React.FC = () => {
           />
 
           <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-[#9B6BFF] text-black text-[9px] font-agency px-2 py-0.5 rounded shadow-[0_0_10px_#9B6BFF]">
-            LEVEL_{user.accessLevel}
+            NIVEL_{user.accessLevel}
           </div>
         </div>
 
@@ -79,7 +79,7 @@ const ProfileHeader: React.FC = () => {
           {isEditing ? (
             <div className="space-y-4 max-w-sm">
               <div className="flex flex-col gap-1">
-                <label className="font-agency text-[8px] text-[#9B6BFF] opacity-60">OPERATIVE_CODENAME</label>
+                <label className="font-agency text-[8px] text-[#9B6BFF] opacity-60">COMANDO_OPERATIVO</label>
                 <input 
                   className="w-full bg-white/5 border border-[#9B6BFF] rounded px-3 py-2 font-agency text-xl text-white outline-none focus:bg-[#9B6BFF11]"
                   value={tempData.name}
@@ -87,7 +87,7 @@ const ProfileHeader: React.FC = () => {
                 />
               </div>
               <div className="flex flex-col gap-1">
-                <label className="font-agency text-[8px] text-[#9B6BFF] opacity-60">ASSIGNED_ROLE</label>
+                <label className="font-agency text-[8px] text-[#9B6BFF] opacity-60">ASIGNAR_ROL</label>
                 <input 
                   className="w-full bg-white/5 border border-white/20 rounded px-3 py-1.5 font-agency text-xs text-[#9B6BFF] outline-none focus:border-[#9B6BFF]"
                   value={tempData.role}
@@ -109,11 +109,11 @@ const ProfileHeader: React.FC = () => {
           
           <div className="grid grid-cols-2 gap-6 text-[10px] font-agency text-[#9AA4C7] mt-6 border-t border-white/5 pt-4">
             <div>
-              <span className="opacity-40 block mb-1">ACCESS_CLEARANCE</span>
-              <span className="text-white uppercase tracking-widest">RANK_{user.accessLevel}_ULTRA</span>
+              <span className="opacity-40 block mb-1">AUTORIZACIÓN_DE _ACCESO</span>
+              <span className="text-white uppercase tracking-widest">RANGO_{user.accessLevel}_ULTRA</span>
             </div>
             <div>
-              <span className="opacity-40 block mb-1">LAST_SECURE_LOGIN</span>
+              <span className="opacity-40 block mb-1">ÚLTIMO_INICIO_DE_SESIÓN_SEGURO</span>
               <span className="text-white tracking-widest">{user.lastLogin}</span>
             </div>
           </div>
@@ -123,10 +123,10 @@ const ProfileHeader: React.FC = () => {
            {isEditing ? (
              <>
                <button onClick={handleSave} className="px-8 py-3 bg-[#9B6BFF] text-black font-agency text-xs transition-all rounded hover:scale-105 active:scale-95 shadow-[0_0_20px_#9B6BFF88]">
-                 CONFIRM_CHANGES
+                 CONFIRMAR_CAMBIOS
                </button>
                <button onClick={() => setIsEditing(false)} className="px-8 py-2 border border-white/10 font-agency text-xs transition-all rounded hover:bg-white/5">
-                 ABORT_EDIT
+                 ABORTAR_EDICIÓN
                </button>
              </>
            ) : (
@@ -134,7 +134,7 @@ const ProfileHeader: React.FC = () => {
                 onClick={() => { setTempData({ name: user.name, role: user.role, avatar: user.avatar }); setIsEditing(true); }}
                 className="px-8 py-3 border border-white/10 hover:border-[#9B6BFF] hover:bg-[#9B6BFF11] text-[#9AA4C7] hover:text-[#9B6BFF] font-agency text-xs transition-all rounded group"
              >
-               UPDATE_DOSSIER
+              EDITAR_ACTUALIZACIÓN
                <div className="h-0.5 w-0 group-hover:w-full transition-all bg-[#9B6BFF] mt-1"></div>
              </button>
            )}

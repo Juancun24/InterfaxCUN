@@ -115,13 +115,13 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
             <div className="flex items-center gap-4">
               <div className={`w-2.5 h-2.5 rounded-full ${isTransitioning ? 'bg-yellow-500' : 'bg-red-500'} animate-pulse shadow-[0_0_10px_currentColor]`}></div>
               <span className="text-[11px] tracking-[0.4em] text-white/80 uppercase">
-                {isTransitioning ? 'AUTHORIZING_MISSION_INTEL' : `DECRYPTED_FEED // ${video.title}`}
+                {isTransitioning ? 'AUTORIZACIÓN_MISIÓN_1' : `FUENTE DESCIFRADA // ${video.title}`}
               </span>
             </div>
             <div className="flex items-center gap-6">
-              <span className="text-[10px] opacity-40 hidden sm:inline tracking-widest font-mono">STREAMING_ENCRYPTED</span>
+              <span className="text-[10px] opacity-40 hidden sm:inline tracking-widest font-mono">TRANSMISIÓN ENCRIPTADA</span>
               <button onClick={onClose} className="text-[10px] hover:text-white transition-all text-white/50 border border-white/10 px-4 py-1.5 rounded-sm hover:border-white/60 hover:bg-white/5">
-                  CLOSE_ARCHIVE [ESC]
+                  CERRA_EXPEDIENTE[ESC]
               </button>
             </div>
         </div>
@@ -162,7 +162,7 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
                       
                       <div className="relative flex flex-col gap-2">
                           <div className="flex justify-between items-end px-1">
-                            <span className="font-agency text-[9px] text-white/40 tracking-[0.3em]">INTEL_INTEGRITY: <span className="text-[#2BFF88]">MAXIMAL</span></span>
+                            <span className="font-agency text-[9px] text-white/40 tracking-[0.3em]">NIVEL: <span className="text-[#2BFF88]">PRINCIPIANTE</span></span>
                             <div className="font-agency text-sm tracking-[0.2em] text-white/90">
                                 {currentTimeDisplay} <span className="text-white/20">/</span> {durationDisplay}
                             </div>
@@ -189,11 +189,11 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
                               
                               <div className="hidden lg:flex gap-8 border-l border-white/10 pl-10">
                                 <div className="flex flex-col">
-                                  <span className="font-agency text-[8px] opacity-40">SAT_UPLINK</span>
-                                  <span className="font-agency text-[10px] text-white/80">CONNECTED</span>
+                                  <span className="font-agency text-[8px] opacity-40">ENLACE_ASCENDENTE</span>
+                                  <span className="font-agency text-[10px] text-white/80">CONECTADO</span>
                                 </div>
                                 <div className="flex flex-col">
-                                  <span className="font-agency text-[8px] opacity-40">BANDWIDTH</span>
+                                  <span className="font-agency text-[8px] opacity-40">BANDANCHA</span>
                                   <span className="font-agency text-[10px] text-[#2BFF88]">500 MB/S</span>
                                 </div>
                               </div>
@@ -201,7 +201,7 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
                           
                           <div className="flex items-center gap-6 border-l border-white/10 pl-10">
                               <div className="flex flex-col items-end gap-1">
-                                 <span className="font-agency text-[8px] opacity-40">VOL_OUTPUT</span>
+                                 <span className="font-agency text-[8px] opacity-40">VOLUMEN</span>
                                  <div className="flex items-center gap-4">
                                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="opacity-40">
                                       <path d="M11 5L6 9H2v6h4l5 4V5z"></path>

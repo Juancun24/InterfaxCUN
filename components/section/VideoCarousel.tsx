@@ -77,7 +77,7 @@ const VideoCarousel: React.FC<VideoCarouselProps> = ({ videos, accentColor, onSe
                 {isActive && (
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6 pointer-events-none">
                         <h4 className="font-agency text-xl mb-1">{video.title}</h4>
-                        <p className="text-[10px] font-agency opacity-60">ACCESS_GRANTED // CLICK_TO_EXPAND</p>
+                        <p className="text-[10px] font-agency opacity-60">ACCESO CONCEDIDO // HAGA CLIC PARA EXPANDIR</p>
                     </div>
                 )}
               </div>

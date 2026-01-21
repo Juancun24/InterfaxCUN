@@ -12,9 +12,9 @@ const ProfileActivityLog: React.FC = () => {
   return (
     <div className="glass rounded-2xl p-6 border border-white/5 flex flex-col h-full">
       <div className="flex justify-between items-center mb-6">
-        <h3 className="font-agency text-sm tracking-[0.3em] text-[#9B6BFF]">ACTIVITY_LOG</h3>
+        <h3 className="font-agency text-sm tracking-[0.3em] text-[#9B6BFF]">ACTIVIDAD</h3>
         <div className="flex gap-2">
-          {['ALL', 'SECURITY', 'NAVIGATION'].map(f => (
+          {['TODO', 'SEGURO', 'NAVEGACIÓN'].map(f => (
             <button 
               key={f}
               onClick={() => setFilter(f)}
