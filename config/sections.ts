@@ -1,7 +1,7 @@
 import { SectionConfig } from '../types';
 
 // EDIT HERE: The video that plays as a transition before any archive video
-export const TRANSITION_VIDEO_URL = '/assets/vid intro foki.mp4'; 
+export const TRANSITION_VIDEO_URL = 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769027073/vid_intro_foki_wh6cdq.mp4'; 
 
 // EDIT HERE: Main sections. You can change the "iconPath" to any SVG 'd' attribute.
 export const SECTIONS: SectionConfig[] = [
@@ -12,7 +12,7 @@ export const SECTIONS: SectionConfig[] = [
   path: "cdigital",
   description: "División de Inteligencia Digital.",
   accessLevel: "ACTIVO",
-  headerVideoUrl: 'assets/VIDEO2.mp4',
+  headerVideoUrl: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769027293/VIDEO2_pnvcoy.mp4',
 
   // ✅ SVG completo con width/height ajustados para el sidebar
  iconSvg: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 94.42 94.42">
@@ -68,7 +68,7 @@ export const SECTIONS: SectionConfig[] = [
     path: 'notebook',
     description: 'Registros de reconocimiento táctico.',
     accessLevel: 'ENCRIPTADO',
-    headerVideoUrl: 'assets/VIDEO2.mp4',
+    headerVideoUrl: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769027293/VIDEO2_pnvcoy.mp4',
     // REEMPLAZA AQUÍ: SVG completo para Notebook (viewBox + 3 paths)
  iconSvg: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 84.47 84.47">
     <g>
@@ -120,7 +120,7 @@ export const SECTIONS: SectionConfig[] = [
     path: 'gemini',
     description: 'Soporte de redes neuronales e IA.',
     accessLevel: 'RESTRINGIDO',
-    headerVideoUrl: 'assets/VIDEO2.mp4',
+    headerVideoUrl: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769027293/VIDEO2_pnvcoy.mp4',
     // REEMPLAZA AQUÍ: SVG completo para Gemini (viewBox + 3 paths)
     iconSvg: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 94.42 94.42">
     <g>
@@ -174,7 +174,7 @@ export const SECTIONS: SectionConfig[] = [
     path: 'kactus',
     description: 'Accede, controla y evoluciona tu ecosistema tecnológico.',
     accessLevel: 'INACTIVO',
-    headerVideoUrl: 'assets/VIDEO2.mp4',
+    headerVideoUrl: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769027293/VIDEO2_pnvcoy.mp4',
     // REEMPLAZA AQUÍ: SVG completo para Kactus (viewBox + 3 paths)
   iconSvg: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 94.42 94.42">
     <g>
@@ -231,7 +231,7 @@ export const SECTIONS: SectionConfig[] = [
     path: 'cun',
     description: 'Operaciones de red unificada central.',
     accessLevel: 'ALTO_NIVEL',
-    headerVideoUrl: 'assets/VIDEO2.mp4',
+    headerVideoUrl: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769027293/VIDEO2_pnvcoy.mp4',
     // REEMPLAZA AQUÍ: SVG completo para CUN (viewBox + 3 paths)
     iconSvg: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 106.71 99.81">
   <g>
@@ -305,7 +305,7 @@ export const SECTIONS: SectionConfig[] = [
     path: 'phyton',
     description: 'Análisis Estructural y Logística.',
     accessLevel: 'ENCRIPTADO',
-    headerVideoUrl: 'assets/VIDEO2.mp4',
+    headerVideoUrl: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769027293/VIDEO2_pnvcoy.mp4',
     // REEMPLAZA AQUÍ: SVG completo para PHYTON (viewBox + 3 paths)
     iconSvg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 94.42 94.42">
   <defs>
@@ -381,7 +381,7 @@ export const SECTIONS: SectionConfig[] = [
     path: 'perfil',
     description: 'Credenciales y desempeño del agente.',
     accessLevel: 'OWNER_ONLY',
-    headerVideoUrl: 'assets/VIDEO2.mp4',
+    headerVideoUrl: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769027293/VIDEO2_pnvcoy.mp4',
     // REEMPLAZA AQUÍ: SVG completo para Perfil (viewBox + 3 paths)
     iconSvg: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 94.42 94.42">
     <g>
