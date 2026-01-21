@@ -400,4 +400,4 @@ export const SECTIONS: SectionConfig[] = [
 export const FORO_ACCENT = '#00E5FF';
 
 // INTRO VIDEO
-export const INTRO_VIDEO_URL = '/assets/render.mp4';
+export const INTRO_VIDEO_URL = 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769025445/render_sbbygx.mp4';
