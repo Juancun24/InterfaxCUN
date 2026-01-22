@@ -73,7 +73,7 @@ const Sidebar: React.FC = () => {
          <div className="w-14 h-14 flex items-center justify-center transition-transform duration-500 hover:scale-110 drop-shadow-[0_0_10px_rgba(31,182,255,0.6)]">
            <img 
             src="https://res.cloudinary.com/dknmovwrt/image/upload/v1769027588/Logo-1_e4jz2r.png" 
-            alt="Logo" 
+            alt="Logos" 
             className="w-full h-full object-contain brightness-125"
            />
          </div>
