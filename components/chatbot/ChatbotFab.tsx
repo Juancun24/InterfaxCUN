@@ -25,7 +25,7 @@ const ChatbotFab: React.FC<ChatbotFabProps> = ({ isOpen, accentColor, onClick })
       <div className="relative">
         {isOpen ? (
           <img
-            src="https://i.ibb.co/JjY5knPb/fokiweb.gif" // ✅ EDIT HERE: GIF cuando está abierto
+            src="https://res.cloudinary.com/dknmovwrt/image/upload/v1769089546/fokiweb_g4g7fd.gif" // ✅ EDIT HERE: GIF cuando está abierto
             alt="Close chatbot"
             className="w-18 h-18 object-contain"
             draggable={false}
@@ -33,7 +33,7 @@ const ChatbotFab: React.FC<ChatbotFabProps> = ({ isOpen, accentColor, onClick })
         ) : (
           <>
             <img
-              src="https://i.ibb.co/JjY5knPb/fokiweb.gif" // ✅ EDIT HERE: GIF cuando está cerrado
+              src="https://res.cloudinary.com/dknmovwrt/image/upload/v1769089546/fokiweb_g4g7fd.gif" // ✅ EDIT HERE: GIF cuando está cerrado
               alt="Open chatbot"
               className="w-16 h-16 object-contain"
               draggable={false}
