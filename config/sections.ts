@@ -32,19 +32,19 @@ export const SECTIONS: SectionConfig[] = [
     {
       id: 'cdigital-1',
       title: 'Aula en orden ',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
+      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769467606/MISION_1_er5vb2.mp4',
       thumbnail: 'https://i.ibb.co/pjxksbx9/foca-cd-digital.jpg',
     },
     {
       id: 'cdigital-2',
       title: 'Grupos Encubiertos',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
+      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769467596/MISION_2_bcetoh.mp4',
       thumbnail: 'https://i.ibb.co/pjxksbx9/foca-cd-digital.jpg',
     },
     {
       id: 'cdigital-3',
       title: 'Libro calificador',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
+      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769467600/CDigital_Mision_3_uqmrdj.mp4',
       thumbnail: 'https://i.ibb.co/pjxksbx9/foca-cd-digital.jpg',
     },
     {
@@ -55,6 +55,18 @@ export const SECTIONS: SectionConfig[] = [
     },
     {
       id: 'cdigital-5',
+      title: 'Extracción de datos',
+      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769467597/MISION_5_ljyjnv.mp4',
+      thumbnail: 'https://i.ibb.co/pjxksbx9/foca-cd-digital.jpg',
+    },
+    {
+      id: 'cdigital-6',
+      title: 'Extracción de datos',
+      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
+      thumbnail: 'https://i.ibb.co/pjxksbx9/foca-cd-digital.jpg',
+    },
+    {
+      id: 'cdigital-7',
       title: 'Extracción de datos',
       url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
       thumbnail: 'https://i.ibb.co/pjxksbx9/foca-cd-digital.jpg',
@@ -138,31 +150,7 @@ export const SECTIONS: SectionConfig[] = [
     {
       id: 'gemini-1',
       title: 'Operación Enlace',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
-      thumbnail: 'https://i.ibb.co/MDDWbGt2/fokigeiny.jpg',
-    },
-    {
-      id: 'gemini-2',
-      title: 'Operación Análisis de Contexto',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
-      thumbnail: 'https://i.ibb.co/MDDWbGt2/fokigeiny.jpg',
-    },
-    {
-      id: 'gemini-3',
-      title: 'Operación Sintetizar Reporte',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
-      thumbnail: 'https://i.ibb.co/MDDWbGt2/fokigeiny.jpg',
-    },
-    {
-      id: 'gemini-4',
-      title: 'Operación Prompt Maestro',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
-      thumbnail: 'https://i.ibb.co/MDDWbGt2/fokigeiny.jpg',
-    },
-    {
-      id: 'gemini-5',
-      title: 'Operación Deploy de Agente',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
+      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769467767/Gemini_rymrgx.mp4',
       thumbnail: 'https://i.ibb.co/MDDWbGt2/fokigeiny.jpg',
     }
   ],
@@ -344,7 +332,7 @@ export const SECTIONS: SectionConfig[] = [
     {
       id: 'sinu-1',
       title: 'Operación Consulta Académica',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
+      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769467778/SINU_aulpoc.mp4',
       thumbnail: 'https://i.ibb.co/dskDkDpb/focasinu.jpg',
     },
     {
