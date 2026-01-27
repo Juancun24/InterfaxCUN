@@ -22,12 +22,11 @@ interface SectionPageProps {
 const SectionPage: React.FC<SectionPageProps> = ({ section }) => {
   const [selectedVideo, setSelectedVideo] = useState<any>(null);
 
-  // If this is the Profile section, render the Identity Dossier dashboard
+  // --- VISTA DE PERFIL ---
   if (section.id === 'perfil') {
     return (
-      <div className="relative p-6 lg:p-10 min-h-full flex flex-col pb-20">
-        <header className="mb-10 relative overflow-hidden rounded-2xl p-8 border border-white/5">
-          {/* Header Video Banner for Profile */}
+      <div className="relative p-4 lg:p-10 min-h-full flex flex-col pb-20">
+        <header className="mb-6 lg:mb-10 relative overflow-hidden rounded-2xl p-6 lg:p-8 border border-white/5">
           {section.headerVideoUrl && (
             <div className="absolute inset-0 z-0 pointer-events-none opacity-20">
               <video 
@@ -42,29 +41,29 @@ const SectionPage: React.FC<SectionPageProps> = ({ section }) => {
           
           <div className="relative z-10">
             <div className="flex items-center gap-3 mb-2">
-              <div className="w-8 h-px bg-[#9B6BFF]"></div>
-              <span className="font-agency text-xs tracking-[0.4em] text-[#9B6BFF]">EXPEDIENTE_OPERATORIO</span>
+              <div className="w-6 lg:w-8 h-px bg-[#9B6BFF]"></div>
+              {/* Ajuste: tracking reducido en móviles */}
+              <span className="font-agency text-[10px] sm:text-xs tracking-[0.2em] lg:tracking-[0.4em] text-[#9B6BFF]">EXPEDIENTE_OPERATORIO</span>
             </div>
-            <h1 className="font-agency text-5xl md:text-6xl text-white tracking-tighter uppercase">Bóveda_de_identidad</h1>
+            {/* Ajuste: text-3xl en móviles, text-6xl en desktop */}
+            <h1 className="font-agency text-3xl md:text-5xl lg:text-6xl text-white tracking-tighter uppercase leading-none">
+              Bóveda_de_identidad
+            </h1>
           </div>
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 relative z-10">
-          {/* Main Content (Left/Center) */}
           <div className="lg:col-span-8 space-y-8">
             <ProfileHeader />
-            
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                <ProfileStats />
                <ProfileSecurity />
             </div>
-
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-8">
                <ProfileActivityLog />
             </div>
           </div>
 
-          {/* Sidebar (Right) */}
           <div className="lg:col-span-4 space-y-8">
              <ProfileBadges />
              <ProfilePreferences />
@@ -78,12 +77,10 @@ const SectionPage: React.FC<SectionPageProps> = ({ section }) => {
     );
   }
 
-  // Default layout for other sections
+  // --- VISTA DE SECCIONES GENERALES ---
   return (
-    <div className="relative p-6 lg:p-10 min-h-full flex flex-col">
-      {/* Header with Video Banner */}
-      <div className="mb-10 relative overflow-hidden rounded-2xl group border border-white/5">
-        {/* EDIT HERE: Banner video background */}
+    <div className="relative p-4 lg:p-10 min-h-full flex flex-col">
+      <div className="mb-8 lg:mb-10 relative overflow-hidden rounded-2xl group border border-white/5">
         {section.headerVideoUrl && (
           <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
             <video 
@@ -92,40 +89,39 @@ const SectionPage: React.FC<SectionPageProps> = ({ section }) => {
               className="w-full h-full object-cover transition-transform duration-[10s] group-hover:scale-110"
               style={{ opacity: 0.25, filter: `contrast(1.5) brightness(0.7) grayscale(0.5)` }}
             />
-            {/* Gradient Mask to make it a "thin" banner visually blending at edges */}
             <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F1A] via-transparent to-[#0B0F1A]"></div>
             <div className="absolute inset-0 bg-gradient-to-r from-[#0B0F1A] via-transparent to-[#0B0F1A]"></div>
-            {/* Accent color glow overlay */}
             <div className="absolute inset-0 opacity-20" style={{ backgroundColor: section.accentColor }}></div>
           </div>
         )}
 
-        <div className="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-6 p-10">
+        {/* Ajuste: padding reducido en móviles (p-6) */}
+        <div className="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-6 p-6 lg:p-10">
           <div>
               <div className="flex items-center gap-3 mb-2">
-                  <div className="w-8 h-px" style={{ backgroundColor: section.accentColor }}></div>
-                  <span className="font-agency text-xs tracking-[0.4em] opacity-60">DIRECTORIO_ACTIVO</span>
+                  <div className="w-6 lg:w-8 h-px" style={{ backgroundColor: section.accentColor }}></div>
+                  <span className="font-agency text-[10px] sm:text-xs tracking-[0.2em] lg:tracking-[0.4em] opacity-60">DIRECTORIO_ACTIVO</span>
               </div>
-              <h1 className="font-agency text-6xl tracking-tighter" style={{ color: section.accentColor }}>
+              {/* Ajuste: text-4xl en móviles, escala a 6xl en pantallas grandes */}
+              <h1 className="font-agency text-4xl md:text-5xl lg:text-6xl tracking-tighter leading-none" style={{ color: section.accentColor }}>
                   {section.label}
               </h1>
           </div>
           
-          <div className="glass p-4 rounded-lg flex gap-8">
+          <div className="glass p-3 lg:p-4 rounded-lg flex gap-4 lg:gap-8 self-start md:self-auto border border-white/5">
               <div>
-                  <div className="font-agency text-[10px] opacity-40 mb-1">ESTADO DE DATOS</div>
-                  <div className="text-xs font-agency text-[#2BFF88]">CONEXIÓN_ESTABLE</div>
+                  <div className="font-agency text-[8px] lg:text-[10px] opacity-40 mb-1 uppercase">Estado de datos</div>
+                  <div className="text-[10px] lg:text-xs font-agency text-[#2BFF88] tracking-widest">CONEXIÓN_ESTABLE</div>
               </div>
-                </div>
+          </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-4 gap-10">
-        {/* Main Area: Carousel + Forum */}
-        <div className="xl:col-span-3 space-y-16">
+      <div className="grid grid-cols-1 xl:grid-cols-4 gap-6 lg:gap-10">
+        <div className="xl:col-span-3 space-y-12 lg:space-y-16">
           <section id="visual-intel">
             <div className="flex items-center gap-4 mb-6">
-                <h3 className="font-agency text-lg tracking-widest">PORTAFOLIO</h3>
+                <h3 className="font-agency text-base lg:text-lg tracking-widest uppercase">Portafolio</h3>
                 <div className="flex-1 h-px bg-white/5"></div>
             </div>
             <VideoCarousel 
@@ -137,14 +133,13 @@ const SectionPage: React.FC<SectionPageProps> = ({ section }) => {
 
           <section id="secure-comms">
             <div className="flex items-center gap-4 mb-6">
-                <h3 className="font-agency text-lg tracking-widest text-[#00E5FF]">CANAL DE COMUNICACIONES SEGURO</h3>
+                <h3 className="font-agency text-base lg:text-lg tracking-widest text-[#00E5FF] uppercase">Canal de comunicación</h3>
                 <div className="flex-1 h-px bg-white/5"></div>
             </div>
             <Forum />
           </section>
         </div>
 
-        {/* Sidebar: Contact Card */}
         <div className="xl:col-span-1">
             <div className="sticky top-10" id="contact-module">
                 <ContactCard accentColor={section.accentColor} />

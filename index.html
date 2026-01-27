@@ -4,8 +4,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tactical HUD | Secret Agent Interface</title>
+    <title>Interfax CUN | Centro de control</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/svg+xml" href="assets\LOGO CUN.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -20,6 +21,8 @@
       }
 
       body {
+        max-width: 100%;
+        overflow-x: hidden;
         margin: 0;
         padding: 0;
         background-color: var(--bg-main);
@@ -75,6 +78,27 @@
         animation: scanline 8s linear infinite;
         pointer-events: none;
       }
+      @media (max-width: 768px) {
+         .glass {  backdrop-filter: blur(8px); /* Reducido de 12px */
+        }
+      }
+        
+        @media (max-width: 640px) {
+          .hide-mobile { display: none !important; }
+          .font-agency { letter-spacing: 0.1em; }
+        }
+        
+        @media (hover: none) and (pointer: coarse) {
+          button, a { min-height: 44px; min-width: 44px; }
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+          *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+          }
+        }
     </style>
   <script type="importmap">
 {

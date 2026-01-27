@@ -43,7 +43,13 @@ export const SECTIONS: SectionConfig[] = [
     },
     {
       id: 'cdigital-3',
-      title: 'Mision_3: Libro calificador',
+      title: 'Mision_3: Entrega Controlada',
+      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769530491/MISION_31_tsqdkx.mp4',
+      thumbnail: 'https://i.ibb.co/pjxksbx9/foca-cd-digital.jpg',
+    },
+    {
+      id: 'cdigital-3.5',
+      title: 'Mision_3.5: Ajuste Fino',
       url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769467600/CDigital_Mision_3_uqmrdj.mp4',
       thumbnail: 'https://i.ibb.co/pjxksbx9/foca-cd-digital.jpg',
     },
@@ -155,6 +161,8 @@ export const SECTIONS: SectionConfig[] = [
     }
   ],
 },
+
+/*
   {
     id: 'kactus',
     label: 'kactus',
@@ -262,6 +270,7 @@ export const SECTIONS: SectionConfig[] = [
     }
   ],
   },
+  */
   {
     id: 'sinu',
     label: 'SINU',

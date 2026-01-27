@@ -56,93 +56,120 @@ const IconModule = ({ color, svgString }: { color: string, svgString: string }) 
   );
 };
 
-const Sidebar: React.FC = () => {
+interface SidebarProps {
+  isMobileMenuOpen?: boolean;
+  setIsMobileMenuOpen?: (open: boolean) => void;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ isMobileMenuOpen = false, setIsMobileMenuOpen }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const location = useLocation();
 
-  return (
-    <aside 
-      onMouseEnter={() => setIsExpanded(true)}
-      onMouseLeave={() => setIsExpanded(false)}
-      className={`glass h-screen sticky top-0 left-0 transition-all duration-300 ease-in-out z-40 flex flex-col items-center py-8 border-r border-white/5
-        ${isExpanded ? 'w-64' : 'w-20'}
-      `}
-    >
-      {/* Logo Principal Flotante (Sin recuadro) */}
-      <div className="mb-12 flex items-center justify-center">
-         <div className="w-14 h-14 flex items-center justify-center transition-transform duration-500 hover:scale-110 drop-shadow-[0_0_10px_rgba(31,182,255,0.6)]">
-           <img 
-            src="https://res.cloudinary.com/dknmovwrt/image/upload/v1769027588/Logo-1_e4jz2r.png" 
-            alt="Logos" 
-            className="w-full h-full object-contain brightness-125"
-           />
-         </div>
-      </div>
+  // Cerrar menú al navegar (solo en móvil)
+  const handleNavClick = () => {
+    if (window.innerWidth < 1024 && setIsMobileMenuOpen) {
+      setIsMobileMenuOpen(false);
+    }
+  };
 
-      <nav className="flex-1 flex flex-col gap-6 w-full px-4 overflow-y-auto">
-        <NavLink 
-          to="/"
-          className={({ isActive }) => `
-            flex items-center gap-4 p-3 rounded-lg transition-all
-            ${isActive ? 'bg-white/10 text-[#1FB6FF] shadow-[0_0_10px_rgba(31,182,255,0.2)]' : 'text-[#9AA4C7] hover:text-white hover:bg-white/5'}
-          `}
-        >
-          <div className="w-6 flex justify-center"><IconHome /></div>
-          {isExpanded && <span className="font-agency text-sm tracking-widest">Control</span>}
-        </NavLink>
+  {/* 1. OVERLAY MÓVIL (Para cerrar el menú al tocar fuera) */}
+  {isMobileMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
+          onClick={() => setIsMobileMenuOpen?.(false)}
+        />
+  )}
+      
+  return (
+      <aside 
+        onMouseEnter={() => setIsExpanded(true)}
+        onMouseLeave={() => setIsExpanded(false)}
+        className={`
+          glass fixed lg:sticky top-0 left-0 h-screen z-50 transition-all duration-300 ease-in-out border-r border-white/5 flex flex-col items-center py-6
+          
+          /* Lógica de Ancho Desktop */
+          ${isExpanded ? 'lg:w-64' : 'lg:w-20'}
+          
+          /* Lógica de Visibilidad Móvil */
+          ${isMobileMenuOpen ? 'translate-x-0 w-64' : '-translate-x-full lg:translate-x-0'}
+        `}
+      >
+
+
+      {/* Logo Principal Flotante (Sin recuadro) */}
+        <div className="mb-12 flex items-center justify-center">
+          <div className="w-12 h-12 transition-transform duration-500 hover:scale-110 drop-shadow-[0_0_10px_rgba(31,182,255,0.6)]">
+            <img 
+              src="https://res.cloudinary.com/dknmovwrt/image/upload/v1769027588/Logo-1_e4jz2r.png" 
+              alt="Logos" 
+              className="w-full h-full object-contain brightness-125"
+            />
+          </div>
+        </div>
+
+        {/* Navegación */}
+        <nav className="flex-1 flex flex-col gap-4 w-full px-4 overflow-y-auto no-scrollbar">
+          <NavLink 
+            to="/"
+            onClick={handleNavClick}
+            className={({ isActive }) => `
+              flex items-center gap-4 p-3 rounded-lg transition-all
+              ${isActive ? 'bg-white/10 text-[#1FB6FF] shadow-[0_0_10px_rgba(31,182,255,0.2)]' : 'text-[#9AA4C7] hover:text-white hover:bg-white/5'}
+            `}
+          >
+            <div className="w-6 flex justify-center flex-shrink-0"><IconHome /></div>
+            <span className={`font-agency text-sm tracking-widest transition-opacity duration-300 ${isExpanded || isMobileMenuOpen ? 'opacity-100' : 'lg:opacity-0 lg:absolute'}`}>
+              Control
+            </span>
+          </NavLink>
 
         <div className="h-px bg-white/10 my-2"></div>
 
-        {SECTIONS.map((section) => {
-          const isActive = location.pathname === `/${section.path}`;
-          return (
-            <NavLink
-              key={section.id}
-              to={`/${section.path}`}
-              className={`
-                flex items-center gap-4 p-3 rounded-lg transition-all group relative
-                ${isActive ? 'bg-white/5' : 'text-[#9AA4C7] hover:text-white hover:bg-white/5'}
-              `}
-              style={{ 
-                color: isActive ? section.accentColor : undefined,
-                boxShadow: isActive ? `inset 0 0 10px ${section.accentColor}22` : 'none'
-              }}
-            >
-              {isActive && (
-                <div 
-                  className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-2/3 rounded-r-full"
-                  style={{ backgroundColor: section.accentColor, boxShadow: `0 0 10px ${section.accentColor}` }}
-                />
-              )}
-              <div className="w-6 flex justify-center">
-                <IconModule 
+          {/* Section Links */}
+          {SECTIONS.map((section) => {
+            const isActive = location.pathname === `/${section.path}`;
+            return (
+              <NavLink
+                key={section.id}
+                to={`/${section.path}`}
+                onClick={handleNavClick}
+                className={`flex items-center gap-4 p-3 rounded-lg transition-all group relative ${isActive ? 'bg-white/5' : 'text-[#9AA4C7] hover:text-white hover:bg-white/5'}`}
+                style={{ color: isActive ? section.accentColor : undefined }}
+              >
+                <div className="w-6 flex justify-center flex-shrink-0">
+                  <IconModule 
                     color={isActive ? section.accentColor : 'currentColor'} 
-                    svgString={section.iconSvg || '<svg viewBox="0 0 24 24"><rect width="16" height="16" x="4" y="4"/></svg>'} 
-                />
-              </div>
-              {isExpanded && <span className="font-agency text-sm tracking-widest uppercase">{section.label}</span>}
-              {!isExpanded && !isActive && (
-                  <div className="absolute left-full ml-4 px-2 py-1 glass text-[10px] font-agency opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-[100]">
+                    svgString={section.iconSvg} 
+                  />
+                </div>
+                <span className={`font-agency text-sm tracking-widest uppercase transition-opacity duration-300 ${isExpanded || isMobileMenuOpen ? 'opacity-100' : 'lg:opacity-0 lg:absolute'}`}>
+                  {section.label}
+                </span>
+                
+                {/* Tooltip Desktop cuando está colapsado */}
+                {!isExpanded && !isMobileMenuOpen && (
+                  <div className="hidden lg:block absolute left-full ml-4 px-3 py-2 glass text-[10px] font-agency opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-[100] border border-white/10">
                     {section.label}
                   </div>
-              )}
-            </NavLink>
-          );
-        })}
-      </nav>
+                )}
+              </NavLink>
+            );
+          })}
+        </nav>
 
-      <div className="mt-auto w-full px-4">
-        <div className="p-3 text-center border border-white/10 rounded-lg text-[#9AA4C7]">
-          {isExpanded ? (
-            <div className="font-agency text-[10px] tracking-tighter uppercase opacity-50">
-              Session_Time: 12:45:01<br/>Status: ACTIVE
-            </div>
-          ) : (
-            <div className="text-xs animate-spin-slow">◎</div>
-          )}
+        {/* Footer Info */}
+        <div className="mt-auto w-full px-4 pt-4">
+          <div className="p-3 text-center border border-white/10 rounded-lg text-[#9AA4C7]">
+            {(isExpanded || isMobileMenuOpen) ? (
+              <div className="font-agency text-[10px] tracking-tighter uppercase opacity-50 animate-pulse">
+                System_Status: ACTIVE
+              </div>
+            ) : (
+              <div className="text-xs animate-spin-slow">◎</div>
+            )}
+          </div>
         </div>
-      </div>
-    </aside>
+      </aside>
   );
 };
 

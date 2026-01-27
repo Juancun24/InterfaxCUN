@@ -1,4 +1,3 @@
-
 // src/components/chatbot/ChatbotPanel.tsx
 import React, { useState, useRef, useEffect } from 'react';
 import { useChatbot } from './useChatbot';
@@ -38,82 +37,87 @@ const ChatbotPanel: React.FC<ChatbotPanelProps> = ({ activeSection, accentColor,
   };
 
   return (
-    <div className="fixed bottom-24 right-6 w-[360px] md:w-[420px] max-h-[600px] h-[80vh] flex flex-col glass rounded-3xl border border-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.6)] z-[60] overflow-hidden animate-in slide-in-from-bottom-10 fade-in duration-300">
-      {/* Header HUD */}
-      <div className="p-4 border-b border-white/10 flex items-center justify-between bg-white/[0.02]">
-        <div className="flex items-center gap-3">
+    <div className="fixed bottom-20 sm:bottom-24 right-4 sm:right-6 left-4 sm:left-auto w-auto sm:w-[360px] md:w-[420px] max-h-[500px] sm:max-h-[600px] h-[70vh] sm:h-[80vh] flex flex-col glass rounded-2xl sm:rounded-3xl border border-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.6)] z-[60] overflow-hidden animate-in slide-in-from-bottom-10 fade-in duration-300">
+      {/* Header HUD - RESPONSIVE PADDING */}
+      <div className="p-3 sm:p-4 border-b border-white/10 flex items-center justify-between bg-white/[0.02]">
+        <div className="flex items-center gap-2 sm:gap-3">
           <div className="relative">
             <div className="w-2 h-2 rounded-full bg-[#2BFF88] animate-pulse"></div>
             <div className="absolute inset-0 w-2 h-2 rounded-full bg-[#2BFF88] animate-ping opacity-40"></div>
           </div>
           <div>
-            <h4 className="font-agency text-xs tracking-[0.2em] text-white">SEALABOT</h4>
-            <span className="text-[9px] font-agency opacity-40 uppercase">Canal_Seguro //Activo</span>
+            <h4 className="font-agency text-[10px] sm:text-xs tracking-[0.2em] text-white">SEALABOT</h4>
+            <span className="text-[8px] sm:text-[9px] font-agency opacity-40 uppercase">Canal_Seguro //Activo</span>
           </div>
         </div>
         <div className="flex gap-2">
-          <button onClick={onClose} className="p-2 hover:bg-white/5 rounded-full transition-colors text-white/40 hover:text-white">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          <button 
+            onClick={onClose} 
+            className="p-2 hover:bg-white/5 rounded-full transition-colors text-white/40 hover:text-white"
+            aria-label="Close chat"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
           </button>
         </div>
       </div>
 
-        {/* Message Feed Container */}
-        <div className="flex-1 relative overflow-hidden"> 
-          
-          {/* 1. Fondo e Imagen (Fijos al contenedor para que no se corten al scrollear) */}
-          <div 
-            className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: 'url("https://res.cloudinary.com/dknmovwrt/image/upload/v1769032404/SEALAB_eiw7so.png")' }}
-          >
-            {/* 2. Overlay que cubre todo el panel de mensajes */}
-            <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]"></div>
-          </div>
-
-          {/* 3. Área de Scroll real */}
-          <div 
-            ref={scrollRef} 
-            className="absolute inset-0 overflow-y-auto p-4 custom-scrollbar z-10"
-          >
-            {/* 4. Envoltorio relativo para el contenido de los mensajes */}
-            <div className="relative space-y-4">
-              {messages.map((msg) => (
-                <ChatMessageBubble 
-                  key={msg.id} 
-                  message={msg} 
-                  accentColor={accentColor} 
-                />
-              ))}
-
-              {isTyping && (
-                <div className="flex items-center gap-2 p-2 opacity-50">
-                  <div className="flex gap-1">
-                    <div className="w-1 h-1 bg-white rounded-full animate-bounce"></div>
-                    <div className="w-1 h-1 bg-white rounded-full animate-bounce [animation-delay:0.2s]"></div>
-                    <div className="w-1 h-1 bg-white rounded-full animate-bounce [animation-delay:0.4s]"></div>
-                  </div>
-                  <span className="font-agency text-[8px]">RESPUESTA_CIFRADA...</span>
-                </div>
-              )}
-            </div>
-          </div>
+      {/* Message Feed Container */}
+      <div className="flex-1 relative overflow-hidden"> 
+        
+        {/* Background image - fixed */}
+        <div 
+          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: 'url("https://res.cloudinary.com/dknmovwrt/image/upload/v1769032404/SEALAB_eiw7so.png")' }}
+        >
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]"></div>
         </div>
 
-      {/* Quick Chips */}
-      <div className="px-4 py-2 flex gap-2 overflow-x-auto no-scrollbar border-t border-white/5">
+        {/* Scroll area - RESPONSIVE PADDING */}
+        <div 
+          ref={scrollRef} 
+          className="absolute inset-0 overflow-y-auto p-3 sm:p-4 custom-scrollbar z-10"
+        >
+          <div className="relative space-y-3 sm:space-y-4">
+            {messages.map((msg) => (
+              <ChatMessageBubble 
+                key={msg.id} 
+                message={msg} 
+                accentColor={accentColor} 
+              />
+            ))}
+
+            {isTyping && (
+              <div className="flex items-center gap-2 p-2 opacity-50">
+                <div className="flex gap-1">
+                  <div className="w-1 h-1 bg-white rounded-full animate-bounce"></div>
+                  <div className="w-1 h-1 bg-white rounded-full animate-bounce [animation-delay:0.2s]"></div>
+                  <div className="w-1 h-1 bg-white rounded-full animate-bounce [animation-delay:0.4s]"></div>
+                </div>
+                <span className="font-agency text-[8px]">RESPUESTA_CIFRADA...</span>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Quick Chips - RESPONSIVE */}
+      <div className="px-3 sm:px-4 py-2 flex gap-2 overflow-x-auto no-scrollbar border-t border-white/5">
         {['/ayuda', '/seccion', '/videos', 'borrar'].map(chip => (
           <button 
             key={chip}
             onClick={() => handleQuickCommand(chip.startsWith('/') ? chip : `/${chip.toLowerCase()}`)}
-            className="shrink-0 px-3 py-1 glass border border-white/10 rounded-full font-agency text-[8px] hover:border-[#1FB6FF] hover:text-[#1FB6FF] transition-all"
+            className="shrink-0 px-2.5 sm:px-3 py-1 glass border border-white/10 rounded-full font-agency text-[8px] hover:border-[#1FB6FF] hover:text-[#1FB6FF] transition-all active:scale-95"
           >
             {chip}
           </button>
         ))}
       </div>
 
-      {/* Input Composer */}
-      <div className="p-4 bg-white/[0.02] border-t border-white/10">
+      {/* Input Composer - RESPONSIVE PADDING */}
+      <div className="p-3 sm:p-4 bg-white/[0.02] border-t border-white/10">
         <div className="relative">
           <input 
             ref={inputRef}
@@ -122,18 +126,24 @@ const ChatbotPanel: React.FC<ChatbotPanelProps> = ({ activeSection, accentColor,
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSend()}
             placeholder="ENTER_TACTICAL_COMMAND..."
-            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 pr-12 font-agency text-[10px] tracking-widest focus:outline-none focus:border-[#1FB6FF] transition-all"
+            className="w-full bg-white/5 border border-white/10 rounded-lg sm:rounded-xl px-3 sm:px-4 py-2 sm:py-3 pr-10 sm:pr-12 font-agency text-[9px] sm:text-[10px] tracking-widest focus:outline-none focus:border-[#1FB6FF] transition-all"
           />
           <button 
             onClick={handleSend}
-            className="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-[#1FB6FF] hover:scale-110 transition-transform"
+            className="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-[#1FB6FF] hover:scale-110 transition-transform active:scale-95"
+            aria-label="Send message"
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            <svg width="16" height="16" className="sm:w-[18px] sm:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
           </button>
         </div>
-        <div className="mt-2 flex justify-between px-1">
-          <span className="text-[8px] font-agency opacity-20">Sistema_ID: ALPHA</span>
-          <span className="text-[8px] font-agency opacity-20">SHIFT+ENTER para nueva linea</span>
+        
+        {/* Footer info - RESPONSIVE */}
+        <div className="mt-2 flex justify-between px-1 text-[7px] sm:text-[8px]">
+          <span className="font-agency opacity-20">Sistema_ID: ALPHA</span>
+          <span className="font-agency opacity-20 hidden sm:inline">SHIFT+ENTER para nueva linea</span>
         </div>
       </div>
     </div>
