@@ -9,7 +9,7 @@ interface VideoCarouselProps {
 }
 
 const VideoCarousel: React.FC<VideoCarouselProps> = ({ videos, accentColor, onSelect }) => {
-  const [activeIndex, setActiveIndex] = useState(2); // Start with middle
+  const [activeIndex, setActiveIndex] = useState(0); // Start with middle
 
   const handleNext = () => setActiveIndex((prev) => (prev + 1) % videos.length);
   const handlePrev = () => setActiveIndex((prev) => (prev - 1 + videos.length) % videos.length);

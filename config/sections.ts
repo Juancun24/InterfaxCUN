@@ -31,44 +31,44 @@ export const SECTIONS: SectionConfig[] = [
   videos: [
     {
       id: 'cdigital-1',
-      title: 'Aula en orden ',
+      title: ' Mision_1: Aula en orden',
       url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769467606/MISION_1_er5vb2.mp4',
       thumbnail: 'https://i.ibb.co/pjxksbx9/foca-cd-digital.jpg',
     },
     {
       id: 'cdigital-2',
-      title: 'Grupos Encubiertos',
+      title: 'Mision_2: Grupos Encubiertos',
       url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769467596/MISION_2_bcetoh.mp4',
       thumbnail: 'https://i.ibb.co/pjxksbx9/foca-cd-digital.jpg',
     },
     {
       id: 'cdigital-3',
-      title: 'Libro calificador',
+      title: 'Mision_3: Libro calificador',
       url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769467600/CDigital_Mision_3_uqmrdj.mp4',
       thumbnail: 'https://i.ibb.co/pjxksbx9/foca-cd-digital.jpg',
     },
     {
       id: 'cdigital-4',
-      title: 'Réplica estratégica',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
+      title: 'Mision_4: Operación calificación',
+      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769519533/MISI%C3%93N_4_fyg2bo.mp4',
       thumbnail: 'https://i.ibb.co/pjxksbx9/foca-cd-digital.jpg',
     },
     {
       id: 'cdigital-5',
-      title: 'Extracción de datos',
+      title: 'Mision_5: Libro Calificador',
       url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769467597/MISION_5_ljyjnv.mp4',
       thumbnail: 'https://i.ibb.co/pjxksbx9/foca-cd-digital.jpg',
     },
     {
       id: 'cdigital-6',
-      title: 'Extracción de datos',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
+      title: 'Mision_6: Extracción de datos',
+      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769468817/0126_1_hecj1b.mp4',
       thumbnail: 'https://i.ibb.co/pjxksbx9/foca-cd-digital.jpg',
     },
     {
       id: 'cdigital-7',
-      title: 'Extracción de datos',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
+      title: 'Mision_7: Replica estrategica',
+      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769519423/MISION_7_im8amd.mp4',
       thumbnail: 'https://i.ibb.co/pjxksbx9/foca-cd-digital.jpg',
     }
   ],
@@ -95,31 +95,19 @@ export const SECTIONS: SectionConfig[] = [
  videos: [
     {
       id: 'notebook-1',
-      title: 'Operación Biblioteca Viva',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
+      title: 'Operación 1: Biblioteca Viva',
+      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769468929/Operaci%C3%B3n_NotebookLM_oedi6d.mp4',
       thumbnail: 'https://i.ibb.co/0zy23P9/focanodbook.jpg',
     },
     {
       id: 'notebook-2',
-      title: 'Operación Ingesta de Fuentes',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
+      title: 'Operación 2: NotebookLM para la planeación de clases',
+      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769468928/NotebookLM_para_la_planeaci%C3%B3n_de_clases_fodicd.mp4',
       thumbnail: 'https://i.ibb.co/0zy23P9/focanodbook.jpg',
     },
     {
       id: 'notebook-3',
-      title: 'Operación Resumen Controlado',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
-      thumbnail: 'https://i.ibb.co/0zy23P9/focanodbook.jpg',
-    },
-    {
-      id: 'notebook-4',
-      title: 'Operación Preguntas Guiadas',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
-      thumbnail: 'https://i.ibb.co/0zy23P9/focanodbook.jpg',
-    },
-    {
-      id: 'notebook-5',
-      title: 'Operación Dossier Consolidado',
+      title: 'Operación aun no disponible',
       url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
       thumbnail: 'https://i.ibb.co/0zy23P9/focanodbook.jpg',
     }
@@ -152,6 +140,18 @@ export const SECTIONS: SectionConfig[] = [
       title: 'Operación Enlace',
       url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769467767/Gemini_rymrgx.mp4',
       thumbnail: 'https://i.ibb.co/MDDWbGt2/fokigeiny.jpg',
+    },
+    {
+      id: 'gemini-2',
+      title: 'MISION BLOQUEADA',
+      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
+      thumbnail: 'https://i.ibb.co/MDDWbGt2/fokigeiny.jpg',
+    },
+    {
+      id: 'gemini-3',
+      title: 'MISION NO DISPONIBLE',
+      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
+      thumbnail: 'https://i.ibb.co/MDDWbGt2/fokigeiny.jpg',
     }
   ],
 },
@@ -182,31 +182,19 @@ export const SECTIONS: SectionConfig[] = [
  videos: [
     {
       id: 'kactus-1',
-      title: 'Operación Apertura KACTUS',
+      title: 'Operación NO DISPONIBLE',
       url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
       thumbnail: 'https://i.ibb.co/kVCZ3Knn/focakatus.jpg',
     },
     {
       id: 'kactus-2',
-      title: 'Operación Gestión de Novedades',
+      title: 'Operación NO DISPONIBLE',
       url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
       thumbnail: 'https://i.ibb.co/kVCZ3Knn/focakatus.jpg',
     },
     {
       id: 'kactus-3',
-      title: 'Operación Liquidación y Nómina',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
-      thumbnail: 'https://i.ibb.co/kVCZ3Knn/focakatus.jpg',
-    },
-    {
-      id: 'kactus-4',
-      title: 'Operación Validación de Contratos',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
-      thumbnail: 'https://i.ibb.co/kVCZ3Knn/focakatus.jpg',
-    },
-    {
-      id: 'kactus-5',
-      title: 'Operación Reportes de Talento',
+      title: 'Operación NO DISPONIBLE',
       url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
       thumbnail: 'https://i.ibb.co/kVCZ3Knn/focakatus.jpg',
     }
@@ -256,31 +244,19 @@ export const SECTIONS: SectionConfig[] = [
  videos: [
     {
       id: 'cun-1',
-      title: 'Operación Acceso Institucional',
+      title: 'MISION NO DISPONIBLE',
       url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
       thumbnail: 'https://i.ibb.co/RxBZYHd/foca-Web.jpg',
     },
     {
       id: 'cun-2',
-      title: 'Operación Gestión de Programas',
+      title: 'MISION NO DISPONIBLE',
       url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
       thumbnail: 'https://i.ibb.co/RxBZYHd/foca-Web.jpg',
     },
     {
       id: 'cun-3',
-      title: 'Operación Control de Materias',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
-      thumbnail: 'https://i.ibb.co/RxBZYHd/foca-Web.jpg',
-    },
-    {
-      id: 'cun-4',
-      title: 'Operación Registro de Usuarios',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
-      thumbnail: 'https://i.ibb.co/RxBZYHd/foca-Web.jpg',
-    },
-    {
-      id: 'cun-5',
-      title: 'Operación Consolidación Operativa',
+      title: 'MISION NO DISPONIBLE',
       url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
       thumbnail: 'https://i.ibb.co/RxBZYHd/foca-Web.jpg',
     }
@@ -331,31 +307,19 @@ export const SECTIONS: SectionConfig[] = [
  videos: [
     {
       id: 'sinu-1',
-      title: 'Operación Consulta Académica',
+      title: 'MISIÓN_ACCESO_Y_NAVEGACIÓN_BASICA',
       url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769467778/SINU_aulpoc.mp4',
       thumbnail: 'https://i.ibb.co/dskDkDpb/focasinu.jpg',
     },
     {
       id: 'sinu-2',
-      title: 'Operación Validación de Datos',
+      title: 'DATOS CORRUPTOS-NO DISPONIBLE',
       url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
       thumbnail: 'https://i.ibb.co/dskDkDpb/focasinu.jpg',
     },
     {
       id: 'sinu-3',
-      title: 'Operación Actualización de Registro',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
-      thumbnail: 'https://i.ibb.co/dskDkDpb/focasinu.jpg',
-    },
-    {
-      id: 'sinu-4',
-      title: 'Operación Soporte y Escalamiento',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
-      thumbnail: 'https://i.ibb.co/dskDkDpb/focasinu.jpg',
-    },
-    {
-      id: 'sinu-5',
-      title: 'Operación Cierre de Caso',
+      title: 'MISION NO DISPONIBLE',
       url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
       thumbnail: 'https://i.ibb.co/dskDkDpb/focasinu.jpg',
     }
