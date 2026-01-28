@@ -46,7 +46,7 @@ const SectionPage: React.FC<SectionPageProps> = ({ section }) => {
               <span className="font-agency text-[10px] sm:text-xs tracking-[0.2em] lg:tracking-[0.4em] text-[#9B6BFF]">EXPEDIENTE_OPERATORIO</span>
             </div>
             {/* Ajuste: text-3xl en móviles, text-6xl en desktop */}
-            <h1 className="font-agency text-3xl md:text-5xl lg:text-6xl text-white tracking-tighter uppercase leading-none">
+            <h1 className="font-agency text-2xl md:text-5xl lg:text-6xl text-white tracking-tighter uppercase leading-none">
               Bóveda_de_identidad
             </h1>
           </div>

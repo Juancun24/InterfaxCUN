@@ -17,18 +17,41 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
   const [currentTimeDisplay, setCurrentTimeDisplay] = useState('00:00');
   const [durationDisplay, setDurationDisplay] = useState('00:00');
   const [isMobile, setIsMobile] = useState(false);
+  const [isLandscape, setIsLandscape] = useState(false);
+  const [showRotateHint, setShowRotateHint] = useState(false);
   
   const videoRef = useRef<HTMLVideoElement>(null);
   const transitionVideoRef = useRef<HTMLVideoElement>(null);
-  const modalRef = useRef<HTMLDivElement>(null); // NUEVO: Referencia al modal
+  const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Detectar móvil
+    // Detectar móvil y orientación
     const checkMobile = () => window.innerWidth < 768;
-    setIsMobile(checkMobile());
+    const checkLandscape = () => window.innerWidth > window.innerHeight;
     
-    const handleResize = () => setIsMobile(checkMobile());
+    setIsMobile(checkMobile());
+    setIsLandscape(checkLandscape());
+    
+    // Mostrar hint de rotación solo en móvil portrait
+    if (checkMobile() && !checkLandscape()) {
+      setShowRotateHint(true);
+      // Ocultar hint después de 5 segundos
+      setTimeout(() => setShowRotateHint(false), 5000);
+    }
+    
+    const handleResize = () => {
+      setIsMobile(checkMobile());
+      setIsLandscape(checkLandscape());
+    };
+    
+    const handleOrientationChange = () => {
+      setTimeout(() => {
+        setIsLandscape(checkLandscape());
+      }, 100);
+    };
+    
     window.addEventListener('resize', handleResize);
+    window.addEventListener('orientationchange', handleOrientationChange);
     
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
@@ -39,7 +62,7 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
     };
     window.addEventListener('keydown', handleKeyDown);
 
-    // Duración de la transición forzada a 3 segundos
+    // Duración de la transición
     const transitionDuration = 3000;
     const start = Date.now();
     
@@ -57,22 +80,57 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('orientationchange', handleOrientationChange);
       clearInterval(interval);
     };
   }, [onClose]);
 
   const handleTransitionEnd = () => {
     setIsTransitioning(false);
-    // Aseguramos que el video principal inicie tras la transición
+    
     setTimeout(() => {
       if (videoRef.current) {
+        // IMPORTANTE: Forzar load() antes de play() para evitar pantalla negra
+        videoRef.current.load();
+        
+        // Intentar fullscreen en móvil después de la transición
+        if (isMobile) {
+          // Dar tiempo para que el video cargue
+          setTimeout(() => {
+            enterFullscreen();
+          }, 500);
+        }
+        
         videoRef.current.play().then(() => {
           setIsPlaying(true);
-        }).catch(() => {
+        }).catch((error) => {
+          console.log('Autoplay bloqueado:', error);
           setIsPlaying(false);
         });
       }
     }, 100);
+  };
+
+  const enterFullscreen = () => {
+    if (!videoRef.current || !isMobile) return;
+    
+    try {
+      // Intentar diferentes métodos de fullscreen
+      if (videoRef.current.requestFullscreen) {
+        videoRef.current.requestFullscreen();
+      } else if ((videoRef.current as any).webkitEnterFullscreen) {
+        // iOS Safari
+        (videoRef.current as any).webkitEnterFullscreen();
+      } else if ((videoRef.current as any).webkitRequestFullscreen) {
+        (videoRef.current as any).webkitRequestFullscreen();
+      } else if ((videoRef.current as any).mozRequestFullScreen) {
+        (videoRef.current as any).mozRequestFullScreen();
+      } else if ((videoRef.current as any).msRequestFullscreen) {
+        (videoRef.current as any).msRequestFullscreen();
+      }
+    } catch (error) {
+      console.log('No se pudo entrar en fullscreen:', error);
+    }
   };
 
   const formatTime = (time: number) => {
@@ -113,9 +171,7 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
     }
   };
 
-  // NUEVO: Handler para cerrar solo cuando se hace click FUERA del modal
   const handleBackdropClick = (e: React.MouseEvent) => {
-    // Si el click fue en el backdrop (no en el modal), cerrar
     if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
       onClose();
     }
@@ -124,20 +180,61 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
   return (
     <div 
       className="fixed inset-0 z-[200] flex items-center justify-center bg-black/90 backdrop-blur-md animate-in fade-in duration-300"
-      onClick={handleBackdropClick} // CAMBIADO: Handler mejorado
+      onClick={handleBackdropClick}
     >
+      {/* HINT DE ROTACIÓN - Solo móvil portrait */}
+      {showRotateHint && isMobile && !isLandscape && (
+        <div className="fixed top-20 left-1/2 -translate-x-1/2 z-[250] glass px-6 py-4 rounded-2xl border border-[#1FB6FF]/50 shadow-2xl animate-in slide-in-from-top duration-500">
+          <div className="flex items-center gap-4">
+            {/* Icono de rotación */}
+            <div className="relative">
+              <svg 
+                width="32" 
+                height="32" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="#1FB6FF" 
+                strokeWidth="2"
+              >
+                <rect x="2" y="6" width="20" height="12" rx="2" />
+                <path d="M12 3v3M12 18v3" />
+              </svg>
+              <svg 
+                width="16" 
+                height="16" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="#1FB6FF" 
+                strokeWidth="2"
+                className="absolute -bottom-1 -right-1 animate-spin"
+              >
+                <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2" />
+              </svg>
+            </div>
+            
+            <div>
+              <p className="font-agency text-sm text-white tracking-wider mb-1">
+                MEJOR EXPERIENCIA
+              </p>
+              <p className="font-agency text-[10px] text-[#1FB6FF] tracking-widest opacity-80">
+                Gira tu dispositivo →
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
       
-      {/* NUEVO: Modal con ref para detectar clicks dentro */}
+      {/* Modal */}
       <div 
         ref={modalRef}
         className={`relative w-full ${
           isMobile ? 'mx-2' : 'max-w-6xl'
         } glass rounded-2xl sm:rounded-3xl overflow-hidden border border-white/10 shadow-[0_0_120px_rgba(0,0,0,1)] animate-in zoom-in duration-500`}
         style={{ borderColor: `${accentColor}44` }}
-        onClick={(e) => e.stopPropagation()} // IMPORTANTE: Prevenir que el click se propague al backdrop
+        onClick={(e) => e.stopPropagation()}
       >
         
-        {/* Header HUD - RESPONSIVE */}
+        {/* Header HUD */}
         <div className={`${
           isMobile ? 'p-3' : 'p-4'
         } flex items-center justify-between border-b border-white/5 font-agency bg-white/[0.02] relative z-[70]`}>
@@ -152,7 +249,6 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
             </span>
           </div>
           
-          {/* Close button - MEJORADO para móviles */}
           <button 
             onClick={onClose}
             className={`${
@@ -176,7 +272,7 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
           </button>
         </div>
 
-        {/* Video Container - RESPONSIVE */}
+        {/* Video Container */}
         <div 
           className="relative bg-black flex items-center justify-center overflow-hidden"
           style={{
@@ -184,7 +280,7 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
             height: isMobile ? 'auto' : undefined
           }}
         >
-          {/* Capa de Transición Táctica (3 segundos) - AMBAS VERSIONES */}
+          {/* Transición */}
           {isTransitioning && (
             <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-black">
               <video 
@@ -193,11 +289,10 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
                 autoPlay 
                 muted
                 playsInline
-                preload={isMobile ? "auto" : "auto"} // Transición siempre carga
+                preload="auto"
                 className="absolute inset-0 w-full h-full object-cover opacity-80 brightness-150 contrast-125 saturate-150"
                 style={{ 
                   filter: `sepia(0.6) hue-rotate(${accentColor === '#9B6BFF' ? '240deg' : '0deg'})`,
-                  // OPTIMIZADO: Limitar calidad en móviles
                   maxHeight: isMobile ? '70vh' : 'none'
                 }}
               />
@@ -206,34 +301,40 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
             </div>
           )}
 
-          {/* Video Principal - OPTIMIZADO EN MÓVIL */}
+          {/* Video Principal - ARREGLADO: Con load() para evitar pantalla negra */}
           <video 
             ref={videoRef}
             src={video.url}
             playsInline
-            preload={isMobile ? "metadata" : "auto"} // OPTIMIZADO: Solo metadata en móvil
+            controls={isMobile && isLandscape} // Controles nativos en landscape móvil
+            preload={isMobile ? "auto" : "auto"} // CAMBIADO: auto en móvil para evitar pantalla negra
+            poster={video.thumbnail} // IMPORTANTE: Poster mientras carga
             className={`w-full h-full object-contain transition-all duration-1000 ${
               isTransitioning ? 'scale-110 blur-3xl opacity-0' : 'scale-100 blur-0 opacity-100'
             }`}
             style={{
-              // OPTIMIZADO: Limitar altura en móviles
               maxHeight: isMobile ? '70vh' : 'none'
             }}
             onTimeUpdate={handleProgress}
             onLoadedMetadata={onLoadedMetadata}
+            onLoadedData={() => {
+              // Cuando el video está listo, asegurar que no hay pantalla negra
+              console.log('Video loaded successfully');
+            }}
             onPlay={() => setIsPlaying(true)}
             onPause={() => setIsPlaying(false)}
-            // REMOVIDO: onClick={togglePlay} - Ya no cierra el modal accidentalmente
+            onError={(e) => {
+              console.error('Error loading video:', e);
+            }}
           />
 
-          {/* HUD de CONTROLES - Visible solo tras transición - RESPONSIVE */}
-          {!isTransitioning && (
+          {/* Controles - Ocultos en landscape móvil (usa controles nativos) */}
+          {!isTransitioning && !(isMobile && isLandscape) && (
             <div className={`absolute inset-x-0 bottom-0 ${
               isMobile ? 'p-4' : 'p-10'
             } bg-gradient-to-t from-black via-black/40 to-transparent transition-all duration-700 z-[60]`}>
               <div className={`flex flex-col ${isMobile ? 'gap-4' : 'gap-8'}`}>
                 
-                {/* Progress bar section - RESPONSIVE */}
                 <div className="relative flex flex-col gap-2">
                   <div className="flex justify-between items-end px-1">
                     <span className={`font-agency ${
@@ -263,11 +364,9 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
                   />
                 </div>
 
-                {/* Controls section - RESPONSIVE */}
                 <div className={`flex items-center ${
                   isMobile ? 'justify-center gap-4' : 'justify-between'
                 }`}>
-                  {/* Play/Pause button */}
                   <div className="flex items-center gap-4 sm:gap-10">
                     <button 
                       onClick={togglePlay} 
@@ -287,7 +386,19 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
                       )}
                     </button>
                     
-                    {/* Desktop info - OCULTO EN MÓVIL */}
+                    {/* Botón fullscreen en móvil */}
+                    {isMobile && !isLandscape && (
+                      <button 
+                        onClick={enterFullscreen}
+                        className="p-3 rounded-full border border-white/20 hover:bg-white/10 transition-all"
+                        aria-label="Fullscreen"
+                      >
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+                        </svg>
+                      </button>
+                    )}
+                    
                     {!isMobile && (
                       <div className="hidden lg:flex gap-8 border-l border-white/10 pl-10">
                         <div className="flex flex-col">
@@ -302,7 +413,6 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
                     )}
                   </div>
                   
-                  {/* Volume control - SIMPLIFICADO EN MÓVIL */}
                   {!isMobile && (
                     <div className="flex items-center gap-6 border-l border-white/10 pl-10">
                       <div className="flex flex-col items-end gap-1">
@@ -330,7 +440,6 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
                     </div>
                   )}
                   
-                  {/* NUEVO: Botón volumen simple en móvil */}
                   {isMobile && (
                     <button 
                       onClick={() => {
@@ -355,7 +464,6 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
             </div>
           )}
 
-          {/* Decoraciones HUD de esquinas - OCULTAS EN MÓVIL */}
           {!isMobile && (
             <>
               <div className="absolute top-10 left-10 w-12 h-12 border-t-2 border-l-2 opacity-20 pointer-events-none" style={{ borderColor: accentColor }}></div>

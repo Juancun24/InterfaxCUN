@@ -32,13 +32,13 @@ export const SECTIONS: SectionConfig[] = [
     {
       id: 'cdigital-1',
       title: ' Mision_1: Aula en orden',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769467606/MISION_1_er5vb2.mp4',
+      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/q_auto,f_auto,br_2m,w_720/v1769467606/MISION_1_er5vb2.mp4',
       thumbnail: 'https://i.ibb.co/pjxksbx9/foca-cd-digital.jpg',
     },
     {
       id: 'cdigital-2',
       title: 'Mision_2: Grupos Encubiertos',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769467596/MISION_2_bcetoh.mp4',
+      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/q_auto,f_auto,br_2m,w_720/v1769467596/MISION_2_bcetoh.mp4',
       thumbnail: 'https://i.ibb.co/pjxksbx9/foca-cd-digital.jpg',
     },
     {
@@ -50,31 +50,31 @@ export const SECTIONS: SectionConfig[] = [
     {
       id: 'cdigital-3.5',
       title: 'Mision_3.5: Ajuste Fino',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769467600/CDigital_Mision_3_uqmrdj.mp4',
+      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/q_auto,f_auto,br_2m,w_720/v1769467600/CDigital_Mision_3_uqmrdj.mp4',
       thumbnail: 'https://i.ibb.co/pjxksbx9/foca-cd-digital.jpg',
     },
     {
       id: 'cdigital-4',
       title: 'Mision_4: Operación calificación',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769519533/MISI%C3%93N_4_fyg2bo.mp4',
+      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/q_auto,f_auto,br_2m,w_720/v1769519533/MISI%C3%93N_4_fyg2bo.mp4',
       thumbnail: 'https://i.ibb.co/pjxksbx9/foca-cd-digital.jpg',
     },
     {
       id: 'cdigital-5',
       title: 'Mision_5: Libro Calificador',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769467597/MISION_5_ljyjnv.mp4',
+      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/q_auto,f_auto,br_2m,w_720/v1769467597/MISION_5_ljyjnv.mp4',
       thumbnail: 'https://i.ibb.co/pjxksbx9/foca-cd-digital.jpg',
     },
     {
       id: 'cdigital-6',
       title: 'Mision_6: Extracción de datos',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769468817/0126_1_hecj1b.mp4',
+      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/q_auto,f_auto,br_2m,w_720/v1769468817/0126_1_hecj1b.mp4',
       thumbnail: 'https://i.ibb.co/pjxksbx9/foca-cd-digital.jpg',
     },
     {
       id: 'cdigital-7',
       title: 'Mision_7: Replica estrategica',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769519423/MISION_7_im8amd.mp4',
+      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/q_auto,f_auto,br_2m,w_720/v1769519423/MISION_7_im8amd.mp4',
       thumbnail: 'https://i.ibb.co/pjxksbx9/foca-cd-digital.jpg',
     }
   ],
