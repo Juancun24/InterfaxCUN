@@ -108,7 +108,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isMobileMenuOpen = false, setIsMobile
         </div>
 
         {/* Navegación */}
-        <nav className="flex-1 flex flex-col gap-4 w-full px-4 overflow-y-auto no-scrollbar">
+        <nav className="flex-1 flex flex-col gap-4 w-full px-4 no-scrollbar">
           <NavLink 
             to="/"
             onClick={handleNavClick}

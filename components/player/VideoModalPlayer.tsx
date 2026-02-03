@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { VideoData } from '../../types';
 import { TRANSITION_VIDEO_URL } from '../../config/sections';
+import { saveVideoProgress, markVideoAsCompleted } from '../section/videoProgressManager';
 
 interface VideoModalPlayerProps {
   video: VideoData;
@@ -23,6 +24,10 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
   const videoRef = useRef<HTMLVideoElement>(null);
   const transitionVideoRef = useRef<HTMLVideoElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
+  
+  // NUEVO: Estados y ref para tracking de progreso
+  const [lastSavedProgress, setLastSavedProgress] = useState(0);
+  const progressSaveIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     // Detectar móvil y orientación
@@ -35,7 +40,6 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
     // Mostrar hint de rotación solo en móvil portrait
     if (checkMobile() && !checkLandscape()) {
       setShowRotateHint(true);
-      // Ocultar hint después de 5 segundos
       setTimeout(() => setShowRotateHint(false), 5000);
     }
     
@@ -82,20 +86,79 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('orientationchange', handleOrientationChange);
       clearInterval(interval);
+      
+      // IMPORTANTE: Limpiar interval de guardado
+      if (progressSaveIntervalRef.current) {
+        clearInterval(progressSaveIntervalRef.current);
+      }
     };
-  }, [onClose]);
+  }, [onClose, isTransitioning]);
+
+  // NUEVO: useEffect separado para guardar progreso al cerrar
+  useEffect(() => {
+    return () => {
+      // Solo guardar si NO estamos en transición Y el video está cargado
+      if (!isTransitioning && videoRef.current) {
+        const currentTime = videoRef.current.currentTime;
+        const duration = videoRef.current.duration;
+        
+        // Validar que tenemos datos válidos
+        if (duration > 0 && !isNaN(currentTime) && !isNaN(duration)) {
+          const finalProgress = (currentTime / duration) * 100;
+          
+          // Solo guardar si hay progreso real (> 1%)
+          if (finalProgress > 1) {
+            console.log('💾 Guardando progreso final:', finalProgress.toFixed(2), '%');
+            saveVideoProgress(video.id, finalProgress, duration);
+          }
+        }
+      }
+    };
+  }, [video.id, isTransitioning]);
+
+  // NUEVO: Función para iniciar tracking automático
+  const startProgressTracking = () => {
+    // Limpiar interval anterior si existe
+    if (progressSaveIntervalRef.current) {
+      clearInterval(progressSaveIntervalRef.current);
+    }
+
+    console.log('🟢 Iniciando tracking automático...');
+
+    // Guardar progreso cada 3 segundos
+    progressSaveIntervalRef.current = setInterval(() => {
+      if (videoRef.current) {
+        const currentTime = videoRef.current.currentTime;
+        const duration = videoRef.current.duration;
+        
+        if (duration > 0 && !isNaN(currentTime) && !isNaN(duration)) {
+          const currentProgress = (currentTime / duration) * 100;
+          
+          // Solo guardar si hay cambio significativo (>2%)
+          if (Math.abs(currentProgress - lastSavedProgress) >= 2) {
+            console.log('💾 Auto-guardando progreso:', currentProgress.toFixed(2), '%');
+            saveVideoProgress(video.id, currentProgress, duration);
+            setLastSavedProgress(currentProgress);
+            
+            // Marcar como completado si llega al 95%
+            if (currentProgress >= 95 && lastSavedProgress < 95) {
+              console.log('✅ Video completado!');
+              markVideoAsCompleted(video.id);
+            }
+          }
+        }
+      }
+    }, 3000); // Cada 3 segundos
+  };
 
   const handleTransitionEnd = () => {
     setIsTransitioning(false);
     
     setTimeout(() => {
       if (videoRef.current) {
-        // IMPORTANTE: Forzar load() antes de play() para evitar pantalla negra
         videoRef.current.load();
         
-        // Intentar fullscreen en móvil después de la transición
         if (isMobile) {
-          // Dar tiempo para que el video cargue
           setTimeout(() => {
             enterFullscreen();
           }, 500);
@@ -103,6 +166,8 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
         
         videoRef.current.play().then(() => {
           setIsPlaying(true);
+          // NUEVO: Iniciar tracking al reproducir
+          startProgressTracking();
         }).catch((error) => {
           console.log('Autoplay bloqueado:', error);
           setIsPlaying(false);
@@ -115,11 +180,9 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
     if (!videoRef.current || !isMobile) return;
     
     try {
-      // Intentar diferentes métodos de fullscreen
       if (videoRef.current.requestFullscreen) {
         videoRef.current.requestFullscreen();
       } else if ((videoRef.current as any).webkitEnterFullscreen) {
-        // iOS Safari
         (videoRef.current as any).webkitEnterFullscreen();
       } else if ((videoRef.current as any).webkitRequestFullscreen) {
         (videoRef.current as any).webkitRequestFullscreen();
@@ -142,19 +205,41 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
   const togglePlay = () => {
     if (videoRef.current) {
       if (videoRef.current.paused) {
-        videoRef.current.play().then(() => setIsPlaying(true));
+        videoRef.current.play().then(() => {
+          setIsPlaying(true);
+          // NUEVO: Reiniciar tracking al reanudar
+          startProgressTracking();
+        });
       } else {
         videoRef.current.pause();
         setIsPlaying(false);
+        // NUEVO: Detener tracking al pausar
+        if (progressSaveIntervalRef.current) {
+          clearInterval(progressSaveIntervalRef.current);
+          console.log('⏸️ Tracking pausado');
+        }
       }
     }
   };
 
+  // MODIFICADO: handleProgress ahora solo actualiza la UI
   const handleProgress = () => {
     if (videoRef.current) {
       const p = (videoRef.current.currentTime / videoRef.current.duration) * 100;
       setProgress(p || 0);
       setCurrentTimeDisplay(formatTime(videoRef.current.currentTime));
+    }
+  };
+
+  // NUEVO: Handler cuando el video termina
+  const handleVideoEnded = () => {
+    console.log('✅ Video terminado, marcando como completado');
+    markVideoAsCompleted(video.id);
+    setIsPlaying(false);
+    
+    // Detener tracking
+    if (progressSaveIntervalRef.current) {
+      clearInterval(progressSaveIntervalRef.current);
     }
   };
 
@@ -182,11 +267,10 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
       className="fixed inset-0 z-[200] flex items-center justify-center bg-black/90 backdrop-blur-md animate-in fade-in duration-300"
       onClick={handleBackdropClick}
     >
-      {/* HINT DE ROTACIÓN - Solo móvil portrait */}
+      {/* HINT DE ROTACIÓN */}
       {showRotateHint && isMobile && !isLandscape && (
         <div className="fixed top-20 left-1/2 -translate-x-1/2 z-[250] glass px-6 py-4 rounded-2xl border border-[#1FB6FF]/50 shadow-2xl animate-in slide-in-from-top duration-500">
           <div className="flex items-center gap-4">
-            {/* Icono de rotación */}
             <div className="relative">
               <svg 
                 width="32" 
@@ -195,6 +279,7 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
                 fill="none" 
                 stroke="#1FB6FF" 
                 strokeWidth="2"
+                className="animate-bounce"
               >
                 <rect x="2" y="6" width="20" height="12" rx="2" />
                 <path d="M12 3v3M12 18v3" />
@@ -207,6 +292,7 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
                 stroke="#1FB6FF" 
                 strokeWidth="2"
                 className="absolute -bottom-1 -right-1 animate-spin"
+                style={{ animationDuration: '3s' }}
               >
                 <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2" />
               </svg>
@@ -301,14 +387,14 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
             </div>
           )}
 
-          {/* Video Principal - ARREGLADO: Con load() para evitar pantalla negra */}
+          {/* Video Principal */}
           <video 
             ref={videoRef}
             src={video.url}
             playsInline
-            controls={isMobile && isLandscape} // Controles nativos en landscape móvil
-            preload={isMobile ? "auto" : "auto"} // CAMBIADO: auto en móvil para evitar pantalla negra
-            poster={video.thumbnail} // IMPORTANTE: Poster mientras carga
+            controls={isMobile && isLandscape}
+            preload="auto"
+            poster={video.thumbnail}
             className={`w-full h-full object-contain transition-all duration-1000 ${
               isTransitioning ? 'scale-110 blur-3xl opacity-0' : 'scale-100 blur-0 opacity-100'
             }`}
@@ -318,17 +404,25 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
             onTimeUpdate={handleProgress}
             onLoadedMetadata={onLoadedMetadata}
             onLoadedData={() => {
-              // Cuando el video está listo, asegurar que no hay pantalla negra
-              console.log('Video loaded successfully');
+              console.log('📹 Video cargado correctamente');
             }}
-            onPlay={() => setIsPlaying(true)}
-            onPause={() => setIsPlaying(false)}
+            onPlay={() => {
+              setIsPlaying(true);
+              startProgressTracking();
+            }}
+            onPause={() => {
+              setIsPlaying(false);
+              if (progressSaveIntervalRef.current) {
+                clearInterval(progressSaveIntervalRef.current);
+              }
+            }}
+            onEnded={handleVideoEnded}
             onError={(e) => {
-              console.error('Error loading video:', e);
+              console.error('❌ Error loading video:', e);
             }}
           />
 
-          {/* Controles - Ocultos en landscape móvil (usa controles nativos) */}
+          {/* Controles - Ocultos en landscape móvil */}
           {!isTransitioning && !(isMobile && isLandscape) && (
             <div className={`absolute inset-x-0 bottom-0 ${
               isMobile ? 'p-4' : 'p-10'
@@ -386,7 +480,6 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
                       )}
                     </button>
                     
-                    {/* Botón fullscreen en móvil */}
                     {isMobile && !isLandscape && (
                       <button 
                         onClick={enterFullscreen}

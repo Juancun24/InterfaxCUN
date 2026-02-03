@@ -131,14 +131,15 @@ const SectionPage: React.FC<SectionPageProps> = ({ section }) => {
             />
           </section>
 
+          {/* SECCION DE FORO ESCONDIDA
           <section id="secure-comms">
             <div className="flex items-center gap-4 mb-6">
                 <h3 className="font-agency text-base lg:text-lg tracking-widest text-[#00E5FF] uppercase">Canal de comunicación</h3>
                 <div className="flex-1 h-px bg-white/5"></div>
             </div>
-            <Forum />
-          </section>
-        </div>
+          <Forum />
+          </section>*/}
+        </div> 
 
         <div className="xl:col-span-1">
             <div className="sticky top-10" id="contact-module">

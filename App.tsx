@@ -94,8 +94,8 @@ const App: React.FC = () => {
               </Routes>
             </main>
 
-            {/* Global Tactical Assistant */}
-            <Chatbot />
+            {/* Global Tactical Assistant 
+            <Chatbot />*/}
           </div>
         )}
       </div>

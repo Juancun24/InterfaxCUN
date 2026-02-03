@@ -6,7 +6,7 @@ export const profileUser = {
   status: "ACTIVO", // ACTIVO, SUSPENDIDO, PENDIENTE
   accessLevel: 5,
   lastLogin: "2025-05-20 14:32:01 UTC",
-  avatar: "https://picsum.photos/seed/cipher/300/300",
+  avatar: 'https://res.cloudinary.com/dknmovwrt/image/upload/v1769629530/Whisk_e4cd3e7bbd434109026467975670f6f2eg_urd67k.png',
   email: "a.vance@agency.intl",
   phone: "+1 (555) 000-8921"
 };
