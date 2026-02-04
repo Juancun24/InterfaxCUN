@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { VideoData } from '../../types';
 import { TRANSITION_VIDEO_URL } from '../../config/sections';
-import { saveVideoProgress, markVideoAsCompleted } from '../section/videoProgressManager';
+import { saveVideoProgress, markVideoAsCompleted, getVideoProgress} from '../section/videoProgressManager';
 
 interface VideoModalPlayerProps {
   video: VideoData;
@@ -20,29 +20,29 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
   const [isMobile, setIsMobile] = useState(false);
   const [isLandscape, setIsLandscape] = useState(false);
   const [showRotateHint, setShowRotateHint] = useState(false);
+  const hasRestoredProgressRef = useRef(false);
   
   const videoRef = useRef<HTMLVideoElement>(null);
   const transitionVideoRef = useRef<HTMLVideoElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
   
-  // NUEVO: Estados y ref para tracking de progreso
+  // Estados para tracking de progreso
   const [lastSavedProgress, setLastSavedProgress] = useState(0);
   const progressSaveIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const isTrackingRef = useRef(false); // NUEVO: Flag para evitar múltiples intervals
 
   useEffect(() => {
-    // Detectar móvil y orientación
     const checkMobile = () => window.innerWidth < 768;
     const checkLandscape = () => window.innerWidth > window.innerHeight;
     
     setIsMobile(checkMobile());
     setIsLandscape(checkLandscape());
     
-    // Mostrar hint de rotación solo en móvil portrait
     if (checkMobile() && !checkLandscape()) {
       setShowRotateHint(true);
       setTimeout(() => setShowRotateHint(false), 5000);
     }
-    
+  
     const handleResize = () => {
       setIsMobile(checkMobile());
       setIsLandscape(checkLandscape());
@@ -66,7 +66,6 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
     };
     window.addEventListener('keydown', handleKeyDown);
 
-    // Duración de la transición
     const transitionDuration = 3000;
     const start = Date.now();
     
@@ -87,26 +86,25 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
       window.removeEventListener('orientationchange', handleOrientationChange);
       clearInterval(interval);
       
-      // IMPORTANTE: Limpiar interval de guardado
+      // Limpiar interval de guardado
       if (progressSaveIntervalRef.current) {
         clearInterval(progressSaveIntervalRef.current);
+        progressSaveIntervalRef.current = null;
       }
+      isTrackingRef.current = false;
     };
   }, [onClose, isTransitioning]);
 
-  // NUEVO: useEffect separado para guardar progreso al cerrar
+  // useEffect para guardar progreso al cerrar
   useEffect(() => {
     return () => {
-      // Solo guardar si NO estamos en transición Y el video está cargado
       if (!isTransitioning && videoRef.current) {
         const currentTime = videoRef.current.currentTime;
         const duration = videoRef.current.duration;
         
-        // Validar que tenemos datos válidos
         if (duration > 0 && !isNaN(currentTime) && !isNaN(duration)) {
           const finalProgress = (currentTime / duration) * 100;
           
-          // Solo guardar si hay progreso real (> 1%)
           if (finalProgress > 1) {
             console.log('💾 Guardando progreso final:', finalProgress.toFixed(2), '%');
             saveVideoProgress(video.id, finalProgress, duration);
@@ -116,14 +114,22 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
     };
   }, [video.id, isTransitioning]);
 
-  // NUEVO: Función para iniciar tracking automático
+  // CORREGIDO: Función para iniciar tracking - con protección contra duplicados
   const startProgressTracking = () => {
-    // Limpiar interval anterior si existe
+    // IMPORTANTE: Verificar si ya está corriendo
+    if (isTrackingRef.current) {
+      console.log('⚠️ Tracking ya está activo, ignorando...');
+      return;
+    }
+
+    // Limpiar cualquier interval anterior
     if (progressSaveIntervalRef.current) {
       clearInterval(progressSaveIntervalRef.current);
+      progressSaveIntervalRef.current = null;
     }
 
     console.log('🟢 Iniciando tracking automático...');
+    isTrackingRef.current = true;
 
     // Guardar progreso cada 3 segundos
     progressSaveIntervalRef.current = setInterval(() => {
@@ -134,13 +140,11 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
         if (duration > 0 && !isNaN(currentTime) && !isNaN(duration)) {
           const currentProgress = (currentTime / duration) * 100;
           
-          // Solo guardar si hay cambio significativo (>2%)
           if (Math.abs(currentProgress - lastSavedProgress) >= 2) {
-            console.log('💾 Auto-guardando progreso:', currentProgress.toFixed(2), '%');
+            console.log('💾 Auto-guardando:', currentProgress.toFixed(2), '%');
             saveVideoProgress(video.id, currentProgress, duration);
             setLastSavedProgress(currentProgress);
             
-            // Marcar como completado si llega al 95%
             if (currentProgress >= 95 && lastSavedProgress < 95) {
               console.log('✅ Video completado!');
               markVideoAsCompleted(video.id);
@@ -148,7 +152,17 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
           }
         }
       }
-    }, 3000); // Cada 3 segundos
+    }, 3000);
+  };
+
+  // CORREGIDO: Función para detener tracking
+  const stopProgressTracking = () => {
+    if (progressSaveIntervalRef.current) {
+      clearInterval(progressSaveIntervalRef.current);
+      progressSaveIntervalRef.current = null;
+      isTrackingRef.current = false;
+      console.log('⏸️ Tracking detenido');
+    }
   };
 
   const handleTransitionEnd = () => {
@@ -156,7 +170,7 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
     
     setTimeout(() => {
       if (videoRef.current) {
-        videoRef.current.load();
+        /*videoRef.current.load();*/
         
         if (isMobile) {
           setTimeout(() => {
@@ -166,8 +180,7 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
         
         videoRef.current.play().then(() => {
           setIsPlaying(true);
-          // NUEVO: Iniciar tracking al reproducir
-          startProgressTracking();
+          // NO llamar startProgressTracking aquí - se llama en onPlay
         }).catch((error) => {
           console.log('Autoplay bloqueado:', error);
           setIsPlaying(false);
@@ -207,22 +220,16 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
       if (videoRef.current.paused) {
         videoRef.current.play().then(() => {
           setIsPlaying(true);
-          // NUEVO: Reiniciar tracking al reanudar
-          startProgressTracking();
+          // NO llamar startProgressTracking aquí - se llama en onPlay
         });
       } else {
         videoRef.current.pause();
         setIsPlaying(false);
-        // NUEVO: Detener tracking al pausar
-        if (progressSaveIntervalRef.current) {
-          clearInterval(progressSaveIntervalRef.current);
-          console.log('⏸️ Tracking pausado');
-        }
+        // Se detendrá en onPause
       }
     }
   };
 
-  // MODIFICADO: handleProgress ahora solo actualiza la UI
   const handleProgress = () => {
     if (videoRef.current) {
       const p = (videoRef.current.currentTime / videoRef.current.duration) * 100;
@@ -231,21 +238,42 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
     }
   };
 
-  // NUEVO: Handler cuando el video termina
   const handleVideoEnded = () => {
     console.log('✅ Video terminado, marcando como completado');
     markVideoAsCompleted(video.id);
     setIsPlaying(false);
-    
-    // Detener tracking
-    if (progressSaveIntervalRef.current) {
-      clearInterval(progressSaveIntervalRef.current);
-    }
+    stopProgressTracking();
   };
 
   const onLoadedMetadata = () => {
-    if (videoRef.current) setDurationDisplay(formatTime(videoRef.current.duration));
-  };
+  if (!videoRef.current || hasRestoredProgressRef.current) return;
+
+  const duration = videoRef.current.duration;
+  setDurationDisplay(formatTime(duration));
+
+  const saved = getVideoProgress(video.id);
+
+  // Condiciones seguras
+  if (
+    saved &&
+    !saved.completed &&
+    saved.progress > 1 &&
+    saved.progress < 95 &&
+    duration > 0
+  ) {
+    const resumeTime = (saved.progress / 100) * duration;
+
+    console.log(
+      `⏯️ Reanudando "${video.id}" desde ${resumeTime.toFixed(2)}s`
+    );
+
+    videoRef.current.currentTime = resumeTime;
+    setProgress(saved.progress);
+    setCurrentTimeDisplay(formatTime(resumeTime));
+  }
+
+  hasRestoredProgressRef.current = true;
+};
 
   const seek = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = parseFloat(e.target.value);
@@ -407,14 +435,14 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
               console.log('📹 Video cargado correctamente');
             }}
             onPlay={() => {
+              console.log('▶️ Video playing');
               setIsPlaying(true);
-              startProgressTracking();
+              startProgressTracking(); // Solo se llama aquí
             }}
             onPause={() => {
+              console.log('⏸️ Video paused');
               setIsPlaying(false);
-              if (progressSaveIntervalRef.current) {
-                clearInterval(progressSaveIntervalRef.current);
-              }
+              stopProgressTracking();
             }}
             onEnded={handleVideoEnded}
             onError={(e) => {
@@ -422,7 +450,7 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
             }}
           />
 
-          {/* Controles - Ocultos en landscape móvil */}
+          {/* Controles */}
           {!isTransitioning && !(isMobile && isLandscape) && (
             <div className={`absolute inset-x-0 bottom-0 ${
               isMobile ? 'p-4' : 'p-10'

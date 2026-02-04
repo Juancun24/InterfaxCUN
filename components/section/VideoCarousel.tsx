@@ -301,7 +301,7 @@ const VideoCarousel: React.FC<VideoCarouselProps> = ({ videos, accentColor, onSe
                         ? '✓ PROCESADO' 
                         : videoState.hasProgress 
                           ? '⟳ EN_PROCESO'
-                          : '🔒 PENDIENTE'
+                          : 'ARCHIVO_PENDIENTE'
                       }
                     </div>
                   </div>
@@ -340,7 +340,7 @@ const VideoCarousel: React.FC<VideoCarouselProps> = ({ videos, accentColor, onSe
                     <p className="text-[9px] sm:text-[10px] font-agency opacity-60 text-white">
                       <span className="hidden sm:inline">
                         {videoState.completed 
-                          ? 'ARCHIVO_PROCESADO // ACCESO_CONCEDIDO'
+                          ? 'ARCHIVO_PROCESADO'
                           : videoState.hasProgress
                             ? 'PROCESANDO_DATOS // HAGA_CLIC_PARA_CONTINUAR'
                             : 'DATOS_BLOQUEADOS // HAGA_CLIC_PARA_DESBLOQUEAR'

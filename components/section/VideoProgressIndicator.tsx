@@ -90,7 +90,6 @@ const VideoProgressIndicator: React.FC<VideoProgressIndicatorProps> = ({
         {/* Progress text */}
         <div className="mt-1 flex items-center justify-between text-[8px] font-agency tracking-wider">
           <span className={completed ? 'text-[#2BFF88]' : 'text-white/40'}>
-            {completed ? 'MÓDULO_PROCESADO' : isInProgress ? 'CARGANDO...' : 'PENDIENTE'}
           </span>
           <span className="text-white/60">{Math.round(progress)}%</span>
         </div>
@@ -174,8 +173,8 @@ const VideoProgressIndicator: React.FC<VideoProgressIndicatorProps> = ({
           <div 
             className="flex items-center justify-center rounded-full animate-in zoom-in duration-300"
             style={{ 
-              width: iconSize + 8, 
-              height: iconSize + 8,
+              width: iconSize + 4, 
+              height: iconSize + 4,
               backgroundColor: `${accentColor}33`,
               border: `2px solid ${accentColor}`
             }}
