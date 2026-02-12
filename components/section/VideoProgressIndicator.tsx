@@ -1,18 +1,16 @@
-// components/video/VideoProgressIndicator.tsx
+// components/video/VideoProgressIndicator.tsx - SISTEMA DE 3 ESTADOS
 
 import React from 'react';
 
 interface VideoProgressIndicatorProps {
-  progress: number; // 0-100
-  completed: boolean;
+  state: 'pending' | 'in_progress' | 'completed'; // 3 estados simples
   accentColor: string;
   size?: 'small' | 'medium' | 'large';
   style?: 'circular' | 'linear';
 }
 
 const VideoProgressIndicator: React.FC<VideoProgressIndicatorProps> = ({
-  progress,
-  completed,
+  state,
   accentColor,
   size = 'medium',
   style = 'circular'
@@ -27,11 +25,10 @@ const VideoProgressIndicator: React.FC<VideoProgressIndicatorProps> = ({
   const { circle: circleSize, stroke: strokeWidth, icon: iconSize } = sizes[size];
   const radius = (circleSize - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
-  const offset = circumference - (progress / 100) * circumference;
   
-  // Estados
-  const isNotStarted = progress === 0;
-  const isInProgress = progress > 0 && !completed;
+  // Progreso visual según estado
+  const visualProgress = state === 'completed' ? 100 : state === 'in_progress' ? 50 : 0;
+  const offset = circumference - (visualProgress / 100) * circumference;
   
   if (style === 'linear') {
     return (
@@ -44,26 +41,26 @@ const VideoProgressIndicator: React.FC<VideoProgressIndicatorProps> = ({
           {/* Progress bar */}
           <div
             className={`h-full transition-all duration-500 relative ${
-              completed 
+              state === 'completed'
                 ? 'bg-gradient-to-r' 
-                : isInProgress 
+                : state === 'in_progress'
                   ? 'bg-gradient-to-r'
                   : 'bg-white/5'
             }`}
             style={{
-              width: `${progress}%`,
-              backgroundImage: completed
+              width: `${visualProgress}%`,
+              backgroundImage: state === 'completed'
                 ? `linear-gradient(90deg, ${accentColor}, ${accentColor}DD)`
-                : isInProgress
+                : state === 'in_progress'
                   ? `linear-gradient(90deg, ${accentColor}88, ${accentColor})`
                   : undefined,
-              boxShadow: isInProgress || completed
+              boxShadow: state !== 'pending'
                 ? `0 0 10px ${accentColor}66`
                 : 'none'
             }}
           >
             {/* Glowing edge */}
-            {isInProgress && (
+            {state === 'in_progress' && (
               <div 
                 className="absolute right-0 top-0 bottom-0 w-1 animate-pulse"
                 style={{ 
@@ -75,7 +72,7 @@ const VideoProgressIndicator: React.FC<VideoProgressIndicatorProps> = ({
           </div>
           
           {/* Completion check */}
-          {completed && (
+          {state === 'completed' && (
             <div 
               className="absolute right-1 top-1/2 -translate-y-1/2 w-3 h-3 flex items-center justify-center rounded-full"
               style={{ backgroundColor: accentColor }}
@@ -89,9 +86,12 @@ const VideoProgressIndicator: React.FC<VideoProgressIndicatorProps> = ({
         
         {/* Progress text */}
         <div className="mt-1 flex items-center justify-between text-[8px] font-agency tracking-wider">
-          <span className={completed ? 'text-[#2BFF88]' : 'text-white/40'}>
+          <span className={state === 'completed' ? 'text-[#2BFF88]' : state === 'in_progress' ? 'text-yellow-400' : 'text-white/40'}>
+            {state === 'completed' ? 'MÓDULO_PROCESADO' : state === 'in_progress' ? 'EN_PROGRESO' : 'BLOQUEADO'}
           </span>
-          <span className="text-white/60">{Math.round(progress)}%</span>
+          <span className="text-white/60">
+            {state === 'completed' ? '100%' : state === 'in_progress' ? '50%' : '0%'}
+          </span>
         </div>
       </div>
     );
@@ -101,7 +101,7 @@ const VideoProgressIndicator: React.FC<VideoProgressIndicatorProps> = ({
   return (
     <div className="relative inline-flex items-center justify-center">
       {/* Outer glow */}
-      {(isInProgress || completed) && (
+      {state !== 'pending' && (
         <div 
           className="absolute inset-0 rounded-full animate-pulse"
           style={{
@@ -117,36 +117,14 @@ const VideoProgressIndicator: React.FC<VideoProgressIndicatorProps> = ({
           cx={circleSize / 2}
           cy={circleSize / 2}
           r={radius}
-          stroke={isNotStarted ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.15)'}
+          stroke={state === 'pending' ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.15)'}
           strokeWidth={strokeWidth}
           fill="none"
-          className={isNotStarted ? '' : 'opacity-50'}
+          className={state === 'pending' ? '' : 'opacity-50'}
         />
         
-        {/* Corner markers (tactical style) */}
-        {!completed && (
-          <>
-            <line 
-              x1={strokeWidth} 
-              y1={strokeWidth} 
-              x2={strokeWidth + 8} 
-              y2={strokeWidth} 
-              stroke="rgba(255,255,255,0.2)" 
-              strokeWidth="1" 
-            />
-            <line 
-              x1={strokeWidth} 
-              y1={strokeWidth} 
-              x2={strokeWidth} 
-              y2={strokeWidth + 8} 
-              stroke="rgba(255,255,255,0.2)" 
-              strokeWidth="1" 
-            />
-          </>
-        )}
-        
         {/* Progress circle */}
-        {(isInProgress || completed) && (
+        {state !== 'pending' && (
           <circle
             cx={circleSize / 2}
             cy={circleSize / 2}
@@ -160,7 +138,7 @@ const VideoProgressIndicator: React.FC<VideoProgressIndicatorProps> = ({
             className="transition-all duration-500"
             style={{
               filter: `drop-shadow(0 0 4px ${accentColor})`,
-              opacity: completed ? 1 : 0.9
+              opacity: state === 'completed' ? 1 : 0.9
             }}
           />
         )}
@@ -168,13 +146,13 @@ const VideoProgressIndicator: React.FC<VideoProgressIndicatorProps> = ({
       
       {/* Center content */}
       <div className="absolute inset-0 flex items-center justify-center">
-        {completed ? (
+        {state === 'completed' ? (
           // COMPLETED: Check icon
           <div 
             className="flex items-center justify-center rounded-full animate-in zoom-in duration-300"
             style={{ 
-              width: iconSize + 4, 
-              height: iconSize + 4,
+              width: iconSize + 8, 
+              height: iconSize + 8,
               backgroundColor: `${accentColor}33`,
               border: `2px solid ${accentColor}`
             }}
@@ -192,28 +170,23 @@ const VideoProgressIndicator: React.FC<VideoProgressIndicatorProps> = ({
               <polyline points="20 6 9 17 4 12" />
             </svg>
           </div>
-        ) : isInProgress ? (
-          // IN PROGRESS: Percentage
+        ) : state === 'in_progress' ? (
+          // IN PROGRESS: Half circle spinning
           <div className="text-center">
-            <div 
-              className="font-agency font-bold tracking-tighter leading-none"
-              style={{ 
-                fontSize: size === 'small' ? '10px' : size === 'medium' ? '13px' : '16px',
-                color: accentColor,
-                textShadow: `0 0 8px ${accentColor}88`
-              }}
+            <svg 
+              width={iconSize} 
+              height={iconSize} 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              stroke={accentColor} 
+              strokeWidth="2.5"
+              className="animate-spin"
             >
-              {Math.round(progress)}
-            </div>
-            <div 
-              className="font-agency text-[6px] tracking-wider opacity-60"
-              style={{ color: accentColor }}
-            >
-              %
-            </div>
+              <path d="M12 2a10 10 0 0 1 10 10" />
+            </svg>
           </div>
         ) : (
-          // NOT STARTED: Lock icon
+          // PENDING: Lock icon
           <svg 
             width={iconSize} 
             height={iconSize} 
@@ -229,7 +202,7 @@ const VideoProgressIndicator: React.FC<VideoProgressIndicatorProps> = ({
       </div>
       
       {/* Scanning animation for in-progress */}
-      {isInProgress && (
+      {state === 'in_progress' && (
         <div 
           className="absolute inset-0 rounded-full border-2 animate-ping"
           style={{ 

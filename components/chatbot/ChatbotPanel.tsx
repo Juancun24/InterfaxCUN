@@ -70,7 +70,7 @@ const ChatbotPanel: React.FC<ChatbotPanelProps> = ({ activeSection, accentColor,
         {/* Background image - fixed */}
         <div 
           className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: 'url("https://res.cloudinary.com/dknmovwrt/image/upload/v1769032404/SEALAB_eiw7so.png")' }}
+          style={{ backgroundImage: 'url("https://i.ibb.co/1YYBHCRX/SEALAB-1.png")' }}
         >
           <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]"></div>
         </div>

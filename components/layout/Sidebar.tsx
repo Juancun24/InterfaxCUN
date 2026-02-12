@@ -100,7 +100,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isMobileMenuOpen = false, setIsMobile
         <div className="mb-12 flex items-center justify-center">
           <div className="w-12 h-12 transition-transform duration-500 hover:scale-110 drop-shadow-[0_0_10px_rgba(31,182,255,0.6)]">
             <img 
-              src="https://res.cloudinary.com/dknmovwrt/image/upload/v1769027588/Logo-1_e4jz2r.png" 
+              src="https://i.ibb.co/1tXzgv1g/Logo-cun.png" 
               alt="Logos" 
               className="w-full h-full object-contain brightness-125"
             />

@@ -1,7 +1,11 @@
 import { SectionConfig } from '../types';
 
 // EDIT HERE: The video that plays as a transition before any archive video
-export const TRANSITION_VIDEO_URL = 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769027073/vid_intro_foki_wh6cdq.mp4'; 
+export const TRANSITION_VIDEO_URL = 'https://zvovjo2h7zyeq3tg.public.blob.vercel-storage.com/vid%20intro%20foki.mp4'; 
+
+export const FORO_ACCENT = '#00E5FF';
+// INTRO VIDEO
+export const INTRO_VIDEO_URL = 'https://zvovjo2h7zyeq3tg.public.blob.vercel-storage.com/render.mp4';
 
 // EDIT HERE: Main sections. You can change the "iconPath" to any SVG 'd' attribute.
 export const SECTIONS: SectionConfig[] = [
@@ -12,7 +16,7 @@ export const SECTIONS: SectionConfig[] = [
   path: "cdigital",
   description: "División de Inteligencia Digital.",
   accessLevel: "ACTIVO",
-  headerVideoUrl: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769027293/VIDEO2_pnvcoy.mp4',
+  headerVideoUrl: 'https://i.ibb.co/84r4f3DC/Header.png',
 
   // ✅ SVG completo con width/height ajustados para el sidebar
  iconSvg: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 94.42 94.42">
@@ -32,49 +36,51 @@ export const SECTIONS: SectionConfig[] = [
     {
       id: 'cdigital-1',
       title: ' Mision_1: Aula en orden',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/q_auto,f_auto,br_2m,w_720/v1769467606/MISION_1_er5vb2.mp4',
+      url: 'https://youtu.be/u099UfGSA7U',
       thumbnail: 'https://i.ibb.co/pjxksbx9/foca-cd-digital.jpg',
+      type: 'youtube'
     },
     {
       id: 'cdigital-2',
       title: 'Mision_2: Grupos Encubiertos',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/q_auto,f_auto,br_2m,w_720/v1769467596/MISION_2_bcetoh.mp4',
+      url: 'https://youtu.be/3rlVg9WQtCg',
       thumbnail: 'https://i.ibb.co/pjxksbx9/foca-cd-digital.jpg',
+      type: 'youtube'
     },
     {
       id: 'cdigital-3',
       title: 'Mision_3: Entrega Controlada',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769530491/MISION_31_tsqdkx.mp4',
-      thumbnail: 'https://i.ibb.co/pjxksbx9/foca-cd-digital.jpg',
-    },
-    {
-      id: 'cdigital-3.5',
-      title: 'Mision_3.5: Ajuste Fino',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/q_auto,f_auto,br_2m,w_720/v1769467600/CDigital_Mision_3_uqmrdj.mp4',
+      url: 'https://youtu.be/mg7JGVAafus',
       thumbnail: 'https://i.ibb.co/pjxksbx9/foca-cd-digital.jpg',
     },
     {
       id: 'cdigital-4',
-      title: 'Mision_4: Operación calificación',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/q_auto,f_auto,br_2m,w_720/v1769519533/MISI%C3%93N_4_fyg2bo.mp4',
+      title: 'Mision_4: Ajuste Fino',
+      url: 'https://youtu.be/U4r3tXFNRDw',
       thumbnail: 'https://i.ibb.co/pjxksbx9/foca-cd-digital.jpg',
     },
     {
       id: 'cdigital-5',
-      title: 'Mision_5: Libro Calificador',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/q_auto,f_auto,br_2m,w_720/v1769467597/MISION_5_ljyjnv.mp4',
+      title: 'Mision_5: Operación calificación',
+      url: 'https://youtu.be/dbhxWA-tjMY',
       thumbnail: 'https://i.ibb.co/pjxksbx9/foca-cd-digital.jpg',
     },
     {
       id: 'cdigital-6',
-      title: 'Mision_6: Extracción de datos',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/q_auto,f_auto,br_2m,w_720/v1769468817/0126_1_hecj1b.mp4',
+      title: 'Mision_6: Libro Calificador',
+      url: 'https://youtu.be/utgpDzSd3Eo',
       thumbnail: 'https://i.ibb.co/pjxksbx9/foca-cd-digital.jpg',
     },
     {
       id: 'cdigital-7',
-      title: 'Mision_7: Replica estrategica',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/q_auto,f_auto,br_2m,w_720/v1769519423/MISION_7_im8amd.mp4',
+      title: 'Mision_7: Extracción de datos',
+      url: 'https://youtu.be/oVUVtI6MoUQ',
+      thumbnail: 'https://i.ibb.co/pjxksbx9/foca-cd-digital.jpg',
+    },
+    {
+      id: 'cdigital-8',
+      title: 'Mision_8: Replica estrategica',
+      url: 'https://youtu.be/O7Jpj-yoBxM',
       thumbnail: 'https://i.ibb.co/pjxksbx9/foca-cd-digital.jpg',
     }
   ],
@@ -86,7 +92,7 @@ export const SECTIONS: SectionConfig[] = [
     path: 'notebook',
     description: 'Registros de reconocimiento táctico.',
     accessLevel: 'ENCRIPTADO',
-    headerVideoUrl: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769027293/VIDEO2_pnvcoy.mp4',
+    headerVideoUrl: 'https://i.ibb.co/84r4f3DC/Header.png',
     // REEMPLAZA AQUÍ: SVG completo para Notebook (viewBox + 3 paths)
  iconSvg: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 84.47 84.47">
     <g>
@@ -102,19 +108,19 @@ export const SECTIONS: SectionConfig[] = [
     {
       id: 'notebook-1',
       title: 'Operación 1: Biblioteca Viva',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769468929/Operaci%C3%B3n_NotebookLM_oedi6d.mp4',
+      url: 'https://youtu.be/cArAOEfKJeQ',
       thumbnail: 'https://i.ibb.co/0zy23P9/focanodbook.jpg',
     },
     {
       id: 'notebook-2',
       title: 'Operación 2: NotebookLM para la planeación de clases',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769468928/NotebookLM_para_la_planeaci%C3%B3n_de_clases_fodicd.mp4',
+      url: 'https://youtu.be/hYZq5AgBPgU',
       thumbnail: 'https://i.ibb.co/0zy23P9/focanodbook.jpg',
     },
     {
       id: 'notebook-3',
       title: 'Operación aun no disponible',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
+      url: 'https://i.ibb.co/84r4f3DC/Header.png',
       thumbnail: 'https://i.ibb.co/0zy23P9/focanodbook.jpg',
     }
   ],
@@ -126,7 +132,7 @@ export const SECTIONS: SectionConfig[] = [
     path: 'gemini',
     description: 'Soporte de redes neuronales e IA.',
     accessLevel: 'RESTRINGIDO',
-    headerVideoUrl: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769027293/VIDEO2_pnvcoy.mp4',
+    headerVideoUrl: 'https://i.ibb.co/84r4f3DC/Header.png',
     // REEMPLAZA AQUÍ: SVG completo para Gemini (viewBox + 3 paths)
     iconSvg: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 94.42 94.42">
     <g>
@@ -144,19 +150,19 @@ export const SECTIONS: SectionConfig[] = [
     {
       id: 'gemini-1',
       title: 'Operación Enlace',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769467767/Gemini_rymrgx.mp4',
+      url: 'https://youtu.be/vWCrMjUrrlE',
       thumbnail: 'https://i.ibb.co/MDDWbGt2/fokigeiny.jpg',
     },
     {
       id: 'gemini-2',
       title: 'MISION BLOQUEADA',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
+      url: 'https://zvovjo2h7zyeq3tg.public.blob.vercel-storage.com/0120.mp4',
       thumbnail: 'https://i.ibb.co/MDDWbGt2/fokigeiny.jpg',
     },
     {
       id: 'gemini-3',
       title: 'MISION NO DISPONIBLE',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
+      url: 'https://zvovjo2h7zyeq3tg.public.blob.vercel-storage.com/0120.mp4',
       thumbnail: 'https://i.ibb.co/MDDWbGt2/fokigeiny.jpg',
     }
   ],
@@ -170,7 +176,7 @@ export const SECTIONS: SectionConfig[] = [
     path: 'kactus',
     description: 'Accede, controla y evoluciona tu ecosistema tecnológico.',
     accessLevel: 'INACTIVO',
-    headerVideoUrl: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769027293/VIDEO2_pnvcoy.mp4',
+    headerVideoUrl: 'https://i.ibb.co/84r4f3DC/Header.png',
     // REEMPLAZA AQUÍ: SVG completo para Kactus (viewBox + 3 paths)
   iconSvg: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 94.42 94.42">
     <g>
@@ -191,19 +197,19 @@ export const SECTIONS: SectionConfig[] = [
     {
       id: 'kactus-1',
       title: 'Operación NO DISPONIBLE',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
+      url: 'https://zvovjo2h7zyeq3tg.public.blob.vercel-storage.com/0120.mp4',
       thumbnail: 'https://i.ibb.co/kVCZ3Knn/focakatus.jpg',
     },
     {
       id: 'kactus-2',
       title: 'Operación NO DISPONIBLE',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
+      url: 'https://zvovjo2h7zyeq3tg.public.blob.vercel-storage.com/0120.mp4',
       thumbnail: 'https://i.ibb.co/kVCZ3Knn/focakatus.jpg',
     },
     {
       id: 'kactus-3',
       title: 'Operación NO DISPONIBLE',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
+      url: 'https://zvovjo2h7zyeq3tg.public.blob.vercel-storage.com/0120.mp4',
       thumbnail: 'https://i.ibb.co/kVCZ3Knn/focakatus.jpg',
     }
   ],
@@ -215,7 +221,7 @@ export const SECTIONS: SectionConfig[] = [
     path: 'cun',
     description: 'Operaciones de red unificada central.',
     accessLevel: 'ALTO_NIVEL',
-    headerVideoUrl: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769027293/VIDEO2_pnvcoy.mp4',
+    headerVideoUrl: 'https://i.ibb.co/84r4f3DC/Header.png',
     // REEMPLAZA AQUÍ: SVG completo para CUN (viewBox + 3 paths)
     iconSvg: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 106.71 99.81">
   <g>
@@ -253,19 +259,19 @@ export const SECTIONS: SectionConfig[] = [
     {
       id: 'cun-1',
       title: 'MISION NO DISPONIBLE',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
+      url: 'https://zvovjo2h7zyeq3tg.public.blob.vercel-storage.com/0120.mp4',
       thumbnail: 'https://i.ibb.co/RxBZYHd/foca-Web.jpg',
     },
     {
       id: 'cun-2',
       title: 'MISION NO DISPONIBLE',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
+      url: 'https://zvovjo2h7zyeq3tg.public.blob.vercel-storage.com/0120.mp4',
       thumbnail: 'https://i.ibb.co/RxBZYHd/foca-Web.jpg',
     },
     {
       id: 'cun-3',
       title: 'MISION NO DISPONIBLE',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
+      url: 'https://zvovjo2h7zyeq3tg.public.blob.vercel-storage.com/0120.mp4',
       thumbnail: 'https://i.ibb.co/RxBZYHd/foca-Web.jpg',
     }
   ],
@@ -278,7 +284,7 @@ export const SECTIONS: SectionConfig[] = [
     path: 'phyton',
     description: 'Análisis Estructural y Logística.',
     accessLevel: 'ENCRIPTADO',
-    headerVideoUrl: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769027293/VIDEO2_pnvcoy.mp4',
+    headerVideoUrl: 'https://i.ibb.co/84r4f3DC/Header.png',
     // REEMPLAZA AQUÍ: SVG completo para PHYTON (viewBox + 3 paths)
     iconSvg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 94.42 94.42">
   <defs>
@@ -317,19 +323,19 @@ export const SECTIONS: SectionConfig[] = [
     {
       id: 'sinu-1',
       title: 'MISIÓN_ACCESO_Y_NAVEGACIÓN_BASICA',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769467778/SINU_aulpoc.mp4',
+      url: 'https://youtu.be/4upg2rzP6m0',
       thumbnail: 'https://i.ibb.co/dskDkDpb/focasinu.jpg',
     },
     {
       id: 'sinu-2',
       title: 'DATOS CORRUPTOS-NO DISPONIBLE',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
+      url: 'https://zvovjo2h7zyeq3tg.public.blob.vercel-storage.com/0120.mp4',
       thumbnail: 'https://i.ibb.co/dskDkDpb/focasinu.jpg',
     },
     {
       id: 'sinu-3',
       title: 'MISION NO DISPONIBLE',
-      url: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769026502/0120_xfu0bb.mp4',
+      url: 'https://zvovjo2h7zyeq3tg.public.blob.vercel-storage.com/0120.mp4',
       thumbnail: 'https://i.ibb.co/dskDkDpb/focasinu.jpg',
     }
   ],
@@ -342,7 +348,7 @@ export const SECTIONS: SectionConfig[] = [
     path: 'perfil',
     description: 'Credenciales y desempeño del agente.',
     accessLevel: 'OWNER_ONLY',
-    headerVideoUrl: 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769027293/VIDEO2_pnvcoy.mp4',
+    headerVideoUrl: 'https://i.ibb.co/84r4f3DC/Header.png',
     // REEMPLAZA AQUÍ: SVG completo para Perfil (viewBox + 3 paths)
     iconSvg: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 94.42 94.42">
     <g>
@@ -358,7 +364,3 @@ export const SECTIONS: SectionConfig[] = [
   }
 ];
 
-export const FORO_ACCENT = '#00E5FF';
-
-// INTRO VIDEO
-export const INTRO_VIDEO_URL = 'https://res.cloudinary.com/dknmovwrt/video/upload/v1769025445/render_sbbygx.mp4';

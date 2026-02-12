@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { VideoData } from '../../types';
 import { useLocation } from 'react-router-dom';
-import { getVideoProgress, VideoProgress } from './videoProgressManager';
+import { getVideoProgress, VideoProgress, getVideoState } from './videoProgressManager';
 import VideoProgressIndicator from './VideoProgressIndicator';
 
 interface VideoCarouselProps {
@@ -14,6 +14,7 @@ const VideoCarousel: React.FC<VideoCarouselProps> = ({ videos, accentColor, onSe
   const [activeIndex, setActiveIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [videoProgresses, setVideoProgresses] = useState<Record<string, VideoProgress>>({});
+  
   const location = useLocation();
 
   // Reset a posición 0 cuando cambia la sección

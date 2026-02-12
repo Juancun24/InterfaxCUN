@@ -29,9 +29,8 @@ const SectionPage: React.FC<SectionPageProps> = ({ section }) => {
         <header className="mb-6 lg:mb-10 relative overflow-hidden rounded-2xl p-6 lg:p-8 border border-white/5">
           {section.headerVideoUrl && (
             <div className="absolute inset-0 z-0 pointer-events-none opacity-20">
-              <video 
-                src={section.headerVideoUrl} 
-                autoPlay muted loop playsInline
+              <img 
+                src={section.headerVideoUrl}
                 className="w-full h-full object-cover brightness-50 contrast-125"
                 style={{ filter: `sepia(1) saturate(5) hue-rotate(${section.accentColor === '#9B6BFF' ? '250deg' : '0deg'})` }}
               />
@@ -83,9 +82,8 @@ const SectionPage: React.FC<SectionPageProps> = ({ section }) => {
       <div className="mb-8 lg:mb-10 relative overflow-hidden rounded-2xl group border border-white/5">
         {section.headerVideoUrl && (
           <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-            <video 
+            <img 
               src={section.headerVideoUrl} 
-              autoPlay muted loop playsInline
               className="w-full h-full object-cover transition-transform duration-[10s] group-hover:scale-110"
               style={{ opacity: 0.25, filter: `contrast(1.5) brightness(0.7) grayscale(0.5)` }}
             />

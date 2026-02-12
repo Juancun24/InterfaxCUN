@@ -4,6 +4,8 @@ export interface VideoData {
   title: string;
   url: string;
   thumbnail: string;
+  type?: 'direct' | 'youtube' | 'vimeo'; // NUEVO: Tipo de video
+  description?: string; // Opcional
 }
 
 export interface SectionConfig {

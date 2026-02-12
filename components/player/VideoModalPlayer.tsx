@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { VideoData } from '../../types';
 import { TRANSITION_VIDEO_URL } from '../../config/sections';
-import { saveVideoProgress, markVideoAsCompleted, getVideoProgress} from '../section/videoProgressManager';
+import { saveVideoProgress, markVideoAsCompleted, getVideoProgress,markVideoAsStarted, saveVideoPosition} from '../section/videoProgressManager';
+import { detectVideoType, getEmbedUrl } from './Videohelpers';
 
 interface VideoModalPlayerProps {
   video: VideoData;
@@ -30,6 +31,11 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
   const [lastSavedProgress, setLastSavedProgress] = useState(0);
   const progressSaveIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const isTrackingRef = useRef(false); // NUEVO: Flag para evitar múltiples intervals
+
+  //Detectar tipo video
+  const videoType = video.type || detectVideoType(video.url);
+  const isEmbedVideo = videoType === 'youtube' || videoType === 'vimeo';
+  const embedUrl = isEmbedVideo ? getEmbedUrl(video.url, videoType) : null;
 
   useEffect(() => {
     const checkMobile = () => window.innerWidth < 768;
@@ -115,45 +121,36 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
   }, [video.id, isTransitioning]);
 
   // CORREGIDO: Función para iniciar tracking - con protección contra duplicados
-  const startProgressTracking = () => {
-    // IMPORTANTE: Verificar si ya está corriendo
-    if (isTrackingRef.current) {
-      console.log('⚠️ Tracking ya está activo, ignorando...');
-      return;
-    }
+const startProgressTracking = () => {
+  if (isEmbedVideo) return;
+  
+  if (isTrackingRef.current) return;
 
-    // Limpiar cualquier interval anterior
-    if (progressSaveIntervalRef.current) {
-      clearInterval(progressSaveIntervalRef.current);
-      progressSaveIntervalRef.current = null;
-    }
+  console.log('🟢 Iniciando tracking:', video.id);
+  isTrackingRef.current = true;
 
-    console.log('🟢 Iniciando tracking automático...');
-    isTrackingRef.current = true;
+  // Marcar como iniciado
+  markVideoAsStarted(video.id, videoRef.current?.duration);
 
-    // Guardar progreso cada 3 segundos
-    progressSaveIntervalRef.current = setInterval(() => {
-      if (videoRef.current) {
-        const currentTime = videoRef.current.currentTime;
-        const duration = videoRef.current.duration;
+  // Guardar cada 5 segundos
+  progressSaveIntervalRef.current = setInterval(() => {
+    if (videoRef.current) {
+      const currentTime = videoRef.current.currentTime;
+      const duration = videoRef.current.duration;
+      
+      if (duration > 0 && !isNaN(currentTime)) {
+        // ⬅️ USAR saveVideoPosition en lugar de markVideoAsStarted
+        saveVideoPosition(video.id, currentTime, duration);
         
-        if (duration > 0 && !isNaN(currentTime) && !isNaN(duration)) {
-          const currentProgress = (currentTime / duration) * 100;
-          
-          if (Math.abs(currentProgress - lastSavedProgress) >= 2) {
-            console.log('💾 Auto-guardando:', currentProgress.toFixed(2), '%');
-            saveVideoProgress(video.id, currentProgress, duration);
-            setLastSavedProgress(currentProgress);
-            
-            if (currentProgress >= 95 && lastSavedProgress < 95) {
-              console.log('✅ Video completado!');
-              markVideoAsCompleted(video.id);
-            }
-          }
+        const currentProgress = (currentTime / duration) * 100;
+        if (currentProgress >= 90 && lastSavedProgress < 90) {
+          markVideoAsCompleted(video.id);
         }
+        setLastSavedProgress(currentProgress);
       }
-    }, 3000);
-  };
+    }
+  }, 5000);
+};
 
   // CORREGIDO: Función para detener tracking
   const stopProgressTracking = () => {
@@ -245,36 +242,30 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
     stopProgressTracking();
   };
 
-  const onLoadedMetadata = () => {
-  if (!videoRef.current || hasRestoredProgressRef.current) return;
-
-  const duration = videoRef.current.duration;
-  setDurationDisplay(formatTime(duration));
-
-  const saved = getVideoProgress(video.id);
-
-  // Condiciones seguras
-  if (
-    saved &&
-    !saved.completed &&
-    saved.progress > 1 &&
-    saved.progress < 95 &&
-    duration > 0
-  ) {
-    const resumeTime = (saved.progress / 100) * duration;
-
-    console.log(
-      `⏯️ Reanudando "${video.id}" desde ${resumeTime.toFixed(2)}s`
-    );
-
-    videoRef.current.currentTime = resumeTime;
-    setProgress(saved.progress);
-    setCurrentTimeDisplay(formatTime(resumeTime));
+ const onLoadedMetadata = () => {
+  if (videoRef.current) {
+    const duration = videoRef.current.duration;
+    setDurationDisplay(formatTime(duration));
+    
+    // Solo para videos directos (no embeds)
+    if (!hasRestoredProgressRef.current && !isEmbedVideo) {
+      const saved = getVideoProgress(video.id);
+      
+      if (saved && saved.state === 'in_progress') {
+        // Restaurar desde 50% (aproximado para sistema de 3 estados)
+        const resumeTime = duration * 0.5;
+        
+        console.log(
+          `🔵 Reanudando "${video.id}" desde 50% (${resumeTime.toFixed(2)}s)`
+        );
+        
+        videoRef.current.currentTime = resumeTime;
+      }
+      
+      hasRestoredProgressRef.current = true;
+    }
   }
-
-  hasRestoredProgressRef.current = true;
 };
-
   const seek = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = parseFloat(e.target.value);
     if (videoRef.current) {
@@ -390,7 +381,7 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
         <div 
           className="relative bg-black flex items-center justify-center overflow-hidden"
           style={{
-            aspectRatio: isMobile ? '16/9' : undefined,
+            aspectRatio: isEmbedVideo ? '16/9' : undefined,
             height: isMobile ? 'auto' : undefined
           }}
         >
@@ -415,42 +406,65 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
             </div>
           )}
 
-          {/* Video Principal */}
-          <video 
-            ref={videoRef}
-            src={video.url}
-            playsInline
-            controls={isMobile && isLandscape}
-            preload="auto"
-            poster={video.thumbnail}
-            className={`w-full h-full object-contain transition-all duration-1000 ${
-              isTransitioning ? 'scale-110 blur-3xl opacity-0' : 'scale-100 blur-0 opacity-100'
-            }`}
-            style={{
-              maxHeight: isMobile ? '70vh' : 'none'
-            }}
-            onTimeUpdate={handleProgress}
-            onLoadedMetadata={onLoadedMetadata}
-            onLoadedData={() => {
-              console.log('📹 Video cargado correctamente');
-            }}
-            onPlay={() => {
-              console.log('▶️ Video playing');
-              setIsPlaying(true);
-              startProgressTracking(); // Solo se llama aquí
-            }}
-            onPause={() => {
-              console.log('⏸️ Video paused');
-              setIsPlaying(false);
-              stopProgressTracking();
-            }}
-            onEnded={handleVideoEnded}
-            onError={(e) => {
-              console.error('❌ Error loading video:', e);
-            }}
-          />
+          {/* CONDICIONAL: Video directo vs Embed YouTube/Vimeo */}
+          {/* El video siempre está presente, solo invisible durante transición */}
+          <div className={isTransitioning ? 'opacity-0 scale-0' : 'opacity-100 scale-100 transition-all duration-1000'}>
+            {isEmbedVideo && embedUrl ? (
+              // ==================== EMBED CHROMELESS: YOUTUBE / VIMEO ====================
+              <div className="relative w-full h-full">
+                <iframe
+                  src={embedUrl}
+                  className="w-full h-full"
+                  style={{
+                    aspectRatio: '16/9',
+                    minHeight: isMobile ? '300px' : '500px',
+                    border: 'none',
+                    // Escalar el iframe para ocultar los controles de YouTube
+                    transform: 'scale(1.05)',
+                    transformOrigin: 'center center'
+                  }}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  title={video.title}
+                />
+              </div>
+            ) : (
+              // ==================== VIDEO DIRECTO: MP4 ====================
+              <video 
+                ref={videoRef}
+                src={video.url}
+                playsInline
+                controls={isMobile && isLandscape}
+                preload="auto"
+                poster={video.thumbnail}
+                className={`w-full h-full object-contain`}
+                style={{
+                  maxHeight: isMobile ? '70vh' : 'none'
+                }}
+                onTimeUpdate={handleProgress}
+                onLoadedMetadata={onLoadedMetadata}
+                onLoadedData={() => {
+                  console.log('📹 Video cargado correctamente');
+                }}
+                onPlay={() => {
+                  console.log('▶️ Video playing');
+                  setIsPlaying(true);
+                  startProgressTracking();
+                }}
+                onPause={() => {
+                  console.log('⏸️ Video paused');
+                  setIsPlaying(false);
+                  stopProgressTracking();
+                }}
+                onEnded={handleVideoEnded}
+                onError={(e) => {
+                  console.error('❌ Error loading video:', e);
+                }}
+              />
+            )}
+          </div>
 
-          {/* Controles */}
+          {/* Controles - Mostrar siempre (funcionan para ambos tipos) }
           {!isTransitioning && !(isMobile && isLandscape) && (
             <div className={`absolute inset-x-0 bottom-0 ${
               isMobile ? 'p-4' : 'p-10'
@@ -583,7 +597,9 @@ const VideoModalPlayer: React.FC<VideoModalPlayerProps> = ({ video, accentColor,
                 </div>
               </div>
             </div>
-          )}
+          )
+          */
+          }
 
           {!isMobile && (
             <>
